@@ -1,0 +1,3332 @@
+========== aulas/capitulo-01-02.pdf ==========
+Django
+Capítulo 1 e 2 - Instalando o virtualenv e rodando o
+primeiro projeto
+
+IFRN
+George Azevedo
+
+Django
+
+IFRN
+George Azevedo
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Com o python instalado é importante verificar se as variáveis de ambiente estão
+colocadas para que possamos usar os comandos de instalação do virtualenv via
+Primeiro vá nas configurações, clique em “Sistema” e, na barra de navegação do lado
+esquerdo, vá até a opção “sobre” e clique nela. no lado direito clique na opção
+“Configurações avançadas do sistema”, depois clique em “Variáveis de Ambiente”. Na
+seção de “Variáveis do Sistema” navegue até “Path,” clique nela, e aperte no botão
+de “Editar…”. A tela que será exibida irá mostrar todas as variáveis do ambiente,
+procure “C:\Python311\Scripts\” e “C:\Python311\”
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+
+Se não existir as variáveis de ambiente
+mostrada no path é só adicionar
+usando o botão “procurar…”. O
+número “311” no “Python311” se refere
+a versão do python, então pode variar
+dependendo da versão instalada.
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Após verificar as variáveis de ambientes, já podemos instalar o pip(Gerenciador de
+pacotes que o Python possui) a fim de conseguirmos intalar o virtualenv django nesse
+primeiro momento. Para isso basta ir no cmd e usar o comando:
+python -m ensurepip
+para garantir que esteja atualizado, use:
+python -m ensurepip --upgrade
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Após instalarmos o gerenciador de pacotes do python, o pip, podemos instalar o
+virtualenv(ambiente virtual que servirá para armazenar os pacotes do projeto). Para isso
+basta abrir o cmd e acionar o executável do pip para instalar o virtualenv, assim:
+c:\Python311\Scripts\pip.exe install virtualenv
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+A partir desse ponto já conseguimos criar ambientes virtuais no nosso dispositivo, então
+ja podemos separa uma pasta no sistema para adicionar esse ambiente. Para criar um
+ambiente virtual basta navegar ate a pasta onde queremos criar um ambiente virtual
+pelo cmd e usar o comando a seguir:
+python -m venv venv
+OBS: o segundo “venv” é o
+nome do ambiente virtual
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Com o ambiente virtual criado, para de fato baixarmos pacotes nele devemos primeiro
+o ativar, para isso, basta ir no cmd e usar o comando
+venv\Scripts\activate
+Em seguida podemos já baixar o pacote do django nele, com o comando:
+pip install django Django==4.2.7
+OBS: “(venv)” antes do caminho da pasta em
+que você está no cmd, indica que o venv foi
+ativado.
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Se você for na venv em Scripts ou Lib/site-packages você vai ver arquivos ou pastas do
+Django já instalados. Com isso já podemos iniciar o nosso primeiro projeto com o
+comando:
+django-admin startproject lojaAdmin .
+OBS: o “ .” é necessário e o
+lojaAdmin é o nome do
+projeto.
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Com o projeto criado vamos organizar e criar suas configurações. primeiro dentro da
+pasta lojaAdmin, crie uma pasta chamada settings. Quando você criou um projeto, já
+veio com alguns arquivos dentro dele, entre eles voce precisa mover o settings.py para
+pasta a settings. após isso você deve criar 4 arquivos .py: development.py ,
+production.py , testing.py e __init__.py.
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Conteudo do development.py:
+
+from .settings import*
+DEBUG = True
+#Crie secret key para seu ambiente de desenvolvimento
+SECRET_KEY='ixb62ha#ts=ab4t2u%p1_62-!5w2j==j6d^3-j$!z(@*m+-h'
+DATABASES={
+'default':{
+'ENGINE':'django.db.backends.sqlite3',
+'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+}
+}
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Conteudo do testing.py:
+
+from .settings import *
+DEBUG=True
+#Crie a secret key para seu ambiente de teste
+SECRET_KEY = 'ixb6fh&#ts=&bt$au%pgp_62-!8dw2j==j)d^3-j$!z(@*m+-h'
+DATABASES = {
+'default':{
+'ENGINE':'django.db.backends.sqlite3',
+'NAME': os.path.join(BASE_DIR,
+'db.sqlite3'),
+}
+}
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Conteudo do production.py:
+
+from .settings import *
+DEBUG = False
+#Crie a secret key para seu ambiente de produção
+SECRET_KEY = 'ixb6fha#ts=&b4t2u%p1_62-!8dw2j==j)d^3-j$!z(@*m+-h'
+DATABASES = {
+'default':{
+'ENGINE':'django.db.backends.sqlite3',
+'NAME': os.path.join(BASE_DIR,
+'db.sqlite3'),
+}
+}
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Após colocar os conteúdos dos 3 arquivos anteriores, as configurações para rodar o
+projeto está quase terminadas. Primeiramente vamos liberar o ip localhost para poder
+rodar a aplicação como servidor, nesses mesmo 3 arquivos adicione, abaixo da
+secret_key, a seguinte linha:
+ALLOWED_HOSTS = ['127.0.0.1']
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Agora, no settings.py, é necessário configurar o local em que ficarão nossos arquivos
+estáticos, para isso importamos a biblioteca os e adicionamos o caminho pros arquivos:
+import
+
+os # pode ser no inicio do codigo
+
+STATIC_ROOT=os.path.join(BASE_DIR, 'static')# abaixo do BASE_DIR =
+Path(__file__).resolve().parent.parent
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Uma coisa importante também é adicionar os dados do nosso país, a nossa linguagem
+e nosso fuso horário no settings.py.
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Nos arquivos manage.py e lojaAdmin\wsgi.py:
+Ajuste a linha “os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings’)”,
+Para conter o diretório correto do arquivo de configuração
+“os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lojaAdmin.settings.development')”.
+Com isso, estamos dizendo ao Django que ele deverá olhar para o arquivo
+lojaAdmin.settings.development.py sempre que não houver uma variável de ambiente
+DJANGO_SETTINGS_MODULE configurada.
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Depois rode a aplicação com o comando no cmd:
+python manage.py runserver 127.0.0.1:8080
+
+Django
+Capítulo 1 e 2 - Instalando virtualenv e rodando o primeiro
+projeto
+Depois vá ao navegador e digite o seguinte link na URL: “http://127.0.0.1:8080/” .
+Após digitar esse, se apareceu a seguinte página é porque deu certo.
+
+
+
+
+========== aulas/capitulo-03.pdf ==========
+Django
+Capítulo 3 Trabalhando com models
+
+IFRN
+George Azevedo
+
+Django
+Capítulo 3 - Trabalhando com Models
+Models são classes responsáveis por representar nossas tabelas do banco de dados
+dentro de nossa aplicação. É através dele que interagimos com o banco de dados,
+lendo, criando, alterando e/ou deletando registros. No Django, models viram páginas
+no painel administrativos onde poderemos também interagir com o banco de dados.
+Usaremos o banco de dados padrão do Django, o SQLite. Então poderemos baixar o
+SQLite Studio para poder ver a estrutura SQL do banco de dados.
+
+Django
+Capítulo 3 - Trabalhando com Models
+Antes de configurar models precisamos rodar nossa primeira migração, para criar as
+tabelas padrões de uma aplicação django. para isso usamos o comando, com o
+ambiente virtual ativo, no cmd:
+python manage.py migrate
+
+Django
+Capítulo 3 - Trabalhando com Models
+Com essa estruturação inicial feita, podemos criar um usuário superadmin que terá
+acesso total a nossa aplicação. O comando que usaremos irá mandar um formulário,
+em linha de comando, pedindo primeiro o nome, depois o email, a senha, por fim
+pedirá uma confirmação para criar o superadmin com y(para sim) e N(para não),
+então, quando for perguntado, escolha sim. Em ambiente de produção, é
+recomendável a senha ser segura, mas como estamos apenas aprendendo, algo
+simples e que seja fácil de você lembrar é recomendável. Use o comando
+python manage.py createsuperuser
+
+Django
+Capítulo 3 - Trabalhando com Models
+
+A seta vermelha mostra o nome do meu usuário, a seta azul mostra meu email, as
+verdes mostram, respectivamente, minha senha e minha senha digitada novamente,
+ambas sendo ocultas. Por minha senha ser muito simples(“admin”), a interface de
+comando mandou avisos antes da confirmação(seta laranja).
+
+Django
+Capítulo 3 - Trabalhando com Models
+Com isso nossa aplicação já possuirá um banco de dados padrão do Django e usuário
+que pode acessar tudo nele. Esse banco está no arquivo db.sqlite3. Se já deseja ver a
+estrutura basta ir no SQLite Studio e ir na opção Banco de dados, depois adicionar
+banco, aperta na pasta amarela , procurar o arquivo db.sqlite3 e escolher ele.
+
+Django
+Capítulo 3 - Trabalhando com Models
+
+Django
+Capítulo 3 - Trabalhando com Models
+O Django possui o conceito de app, onde cada app dentro do sistema tem sua
+finalidade específica. Para criarmos nosso primeiro app executaremos o seguinte
+comando no cmd :
+python manage.py startapp loja
+OBS: lembrando que o
+comando deve ser executado
+na mesma pasta e que
+lojaAdmin está pois esse
+comando cria uma estrutura no
+diretorio em que você está
+localizado no cmd.
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora precisamos adicionar esse app para ser gerenciado por nosso admin, nosso
+projeto Django, lojaAdmin. Modificando a lista de INSTALLED_APPS no arquivo
+lojaAdmin/settings/settings.py, adicionando uma vírgula depois
+'django.contrib.staticfiles' e após a vírgula adicionamos ‘loja’ assim:
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora, no app criado, adicione uma pasta chamada models e apague o arquivo
+models.py, para organizar em múltiplos arquivos as classes, ao invés de só organizar
+tudo em um só arquivo. Depois crie um arquivo chamado __init__.py.
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora, com a pasta models criado, criaremos nossa primeira classe modelo, chamada
+Fabricante com o seguinte código:
+loja/models/Fabricante.py:
+from loja.models import *
+class Fabricante(models.Model):
+Fabricante = models.CharField(null=False, max_length=100)
+criado_em = models.DateTimeField(auto_now_add=True)
+alterado_em = models.DateTimeField(auto_now=True)
+def __str__(self):
+return '{}'.format(self. Fabricante)
+
+Django
+Capítulo 3 - Trabalhando com Models
+O Atributo Fabricante armazena o nome do fabricante. “Models.CharField” é um
+tipo de modelo que o Django oferece, que possui um input do tipo texto de até 255
+caracteres associado a ele. O parâmetro “null=False” indica que esse valor não pode
+ser nulo e “max_length=100” determina o número máximo de caracteres,100.
+O criado_em armazena a data em que o objeto da classe foi adicionado.
+O alterado_em armazena a data da última modificação do objeto.
+O metodo __str__ retorna o nome do objeto Fabricante.
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora precisamos comunicar ao Django quais models deverão refletir a estrutura de
+nosso banco. Para isso no init, que criamos dentro da pasta models do nosso app
+criado, colocaremos o seguinte código para montar nossa tabela:
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch
+import receiver
+#acima são bibliotecas padrões necessárias do Django, e abaixo
+nossos models
+from .Fabricante import Fabricante
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora, basta ir no cmd e digitar o comando a seguir, para criar um código que conterá
+a estrutura de nossa tabela com base no nosso modelo:
+python manage.py makemigrations loja
+OBS: a seta está apontando
+pro nome do arquivo que
+conterá o código citado, e a
+linha que mostra sua
+localização no projeto.
+
+Django
+Capítulo 3 - Trabalhando com Models
+Depois disso será criado um arquivo na pasta migration do app com o código da
+implementação do nosso model. Agora, para de fato aplicarmos essa alteração basta
+usar o comando:
+python manage.py migrate loja
+
+Django
+Capítulo 3 - Trabalhando com Models
+Para conferir a nova tabela basta ir no SQLite Studio e clicar com o botão direito no
+banco de dados e clicar em atualizar todos os esquemas de banco de dados clique
+dias vezes na tabela e veja sua estrutura.
+
+Django
+Capítulo 3 - Trabalhando com Models
+Com o django temos acesso a manipulações de registro com interface gráfica, para
+isso precisamos rodar a aplicação, e colocar no url do navegador
+http://127.0.0.1:8080/admin. Ao entrarmos nesse link, veremos um formulário de entrada
+com login. Por hora, o único usuário com acesso a entrar é nosso superadmin. Então
+preencha o formulário com o nome e senha do seu superadmin. Por agora rode o
+projeto com o seguinte comando no cmd:
+python manage.py runserver 127.0.0.1:8080
+
+Django
+Capítulo 3 - Trabalhando com Models
+Entre no link http://127.0.0.1:8080/admin e sera exibido o seguinte formulário. Preencha
+com os dados do super admin e submeta para ver as tabelas disponíveis para ele:
+
+Django
+Capítulo 3 - Trabalhando com Models
+
+Django
+Capítulo 3 - Trabalhando com Models
+O que fizemos até agora foi adicionar o nosso modelo a uma tabela do nosso banco,
+porém não adicionamos essa tabela na interface do admin, por isso não a vemos na
+interface. Para isso devemos, na pasta do nosso app criado, no arquivo
+admin.py(loja/admin.py), adicionar o nosso modelo na interface assim:
+from django.contrib import admin #isso já vai estar existindo no
+arquivo
+# Register your models here.
+from .models import * #imporata nossos models
+admin.site.register(Fabricante) #adiciona a interface do adm
+
+Django
+Capítulo 3 - Trabalhando com Models
+Com isso, se rodarmos nosso projeto de novo e irmos na interface do admin já veremos
+a tabela de Fabricantes e poderemos listar, adicionar, deletar, ver ou/e modificar
+registros.
+
+Django
+Capítulo 3 - Trabalhando com Models
+Antes de adicionarmos registros, vamos criar mais duas classes, Categoria e fabricante
+na pasta models com o seguinte conteúdo:
+# loja/models/Categoria:
+from loja.models import *
+class Categoria(models.Model):
+Categoria = models.CharField(null=False, max_length=100)
+criado_em = models.DateTimeField(auto_now_add=True)
+alterado_em = models.DateTimeField(auto_now=True)
+def __str__(self):
+return '{}'.format(self.Categoria)
+
+Django
+Capítulo 3 - Trabalhando com Models
+#loja/models/Produto.py parte 1:
+from loja.models import *
+class Produto(models.Model):
+Produto = models.CharField(null=False, max_length=100)
+destaque = models.BooleanField(default=True)
+promocao = models.BooleanField(default=True)
+msgPromocao = models.CharField(null=True, max_length=100)
+preco = models.DecimalField(max_digits=8, decimal_places=2)
+categoria = models.ForeignKey(Categoria, null=True,
+related_name='categoria', on_delete=models.SET_NULL)
+fabricante = models.ForeignKey(Fabricante, null=True,
+related_name='fabricante', on_delete=models.SET_NULL)
+
+Django
+Capítulo 3 - Trabalhando com Models
+#loja/models/Produto.py parte 2:
+criado_em = models.DateTimeField(auto_now_add=True)
+alterado_em = models.DateTimeField(auto_now=True)
+
+def __str__(self):
+return '{}'.format(self.Produto)
+
+Django
+Capítulo 3 - Trabalhando com Models
+“BooleanField” associa a variável ao valor True ou False. Também associa o
+atributo a um checkbox marcavel. O parâmetro “default=True” coloca um valor inicial
+que se manterá caso o usuário não interage com esse campo, no caso, por padrão
+sempre será True.
+“DecimalFIeld” associa a variável a valores reais e a um campo numérico, input
+type number.
+“ForeignKey” serve para associar essa classe a outra, mais especificamente, para
+pegar as chaves primárias de objetos de outra tabela.
+
+Django
+Capítulo 3 - Trabalhando com Models
+Novamente iremos ao models/__init__.py para que nossos novos models façam parte
+do nosso banco de dados:
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+#acima são bibliotecas padrões necessárias do Django, e abaixo nossos
+models
+from .Fabricante import Fabricante
+from .Categoria import Categoria
+from .Produto import Produto
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora vamos usar o comando para gerar o código da modificação no banco de
+dados e depois o comando para implementar a modificação desse arquivo no cmd:
+python manage.py makemigrations loja
+python manage.py migrate loja
+
+Django
+Capítulo 3 - Trabalhando com Models
+Após isso iremos no admin.py do nosso app criado(loja/admin.py) e adicionaremos as
+classes de modelos que criamos na interface do adm assim :
+from django.contrib import admin
+# Register your models here.
+from .models import *
+admin.site.register(Fabricante)
+admin.site.register(Categoria)
+admin.site.register(Produto)
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora se visitarmos a interface do admin de novo, poderemos ver as novas tabelas
+
+Django
+Capítulo 3 - Trabalhando com Models
+Iremos popular nosso banco de dados criando dois fabricantes(Microsoft e Dell), duas
+Categorias(Software e Hardware) e dois Produtos(Monitor associado a Del e Hardware,
+e Windows 11 associado a Microsoft e Software), para isso basta clicar em adicionar ou
+apertar na tabela(lista os registros), apertar em adicionar, preencher o formulário e
+enviar os dados.
+
+Django
+Capítulo 3 - Trabalhando com Models
+
+Django
+Capítulo 3 - Trabalhando com Models
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora vamo acrescentar na tabela de produto um campo para imagem. Para isso,
+instalaremos a biblioteca Pillow a qual será usado pelo Django para os uploads de
+imagens. para instalar o Pillow basta ir no cmd e usar o comando:
+pip install Pillow
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora na classe modelo Produto.py adicione o campo para imagem:
+#adicione abaixo do alterado_em = models.DateTimeField(auto_now=True)
+image = models.ImageField(null=True, blank=True)
+
+Django
+Capítulo 3 - Trabalhando com Models
+Antes de implementar essa modificação, adicione na lojaAdmin/settings/settings.py
+abaixo do “ STATIC_URL = 'static/' ”:
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT o caminho absoluto do sistema de arquivos para a pasta que conterá os
+arquivos enviados pelo usuário.
+MEDIA_URL é quem lida com a mídia vinculado a MEDIA_ROOT, gerenciando seus
+arquivos
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora no urls.py, na raiz do lojaAdmin, vamos mandor o Django liberar o acesso a pasta
+de imagem e o static. Para isso usamos esses imports no lojaAdmin/urls.py:
+from django.conf.urls.static import static
+from django.conf import settings
+
+depois a somamos a pasta de imagens e o static à lista no urlpatterns, assim:
+urlpatterns = [
+path('admin/', admin.site.urls),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+Django
+Capítulo 3 - Trabalhando com Models
+settings.py:
+
+urls.py:
+
+Django
+Capítulo 3 - Trabalhando com Models
+Agora vamos usar o comando para gerar o código da modificação, que dessa vez vai
+ser a alteração apenas de um campo, no banco de dados e depois o comando para
+implementar a modificação desse arquivo, novamente, no cmd:
+python manage.py makemigrations loja
+python manage.py migrate loja
+
+Django
+Capítulo 3 - Trabalhando com Models
+Rodando novamente a aplicação e clicando na tabela produto e selecionando um
+produto qualquer, veremos esse novo campo:
+
+Django
+Capítulo 3 - Trabalhando com Models
+Quando adicionarmos uma imagem a pasta media será criada com a imagem que
+você submeteu
+
+
+
+
+========== aulas/capitulo-04.pdf ==========
+Django
+Capítulo 4 Área administrativa
+
+IFRN
+George Azevedo
+
+Django
+Capítulo 4 - Área Administrativa
+Como vimos anteriormente, o Django nos proporciona uma interface administrativa,
+onde é possível gerenciarmos os dados que serão armazenados em nosso banco.
+Inicialmente, o admin pode parecer muito vazio, apenas mostrando os dados através
+de CRUDs (CREATE, READ, UPDATE e DELETE), mas existem diversas outras coisas que
+podemos fazer no painel administrativo, como filtros, pesquisas e emissão de relatórios.
+Veremos como personalizar nosso painel admin ou, como é chamado no Django, nossa
+model admin para que ela possa ser bem mais do que um painel, no qual vamos inserir
+e gerenciar dados do nosso sistema. A seguir veremos apenas alguns deles.
+
+Django
+Capítulo 4 - Área Administrativa
+Por agora iremos no arquivo loja/admin.py e iremos criar uma uma classe que servirá
+para alterar aparência e comportamento do nosso admin, por isso essa classe que
+criaremos herdara de outra, chamada ModelAdmin, para implementar essas
+mudanças. No caso, iremos adicionar um filtro com base na data de criação para
+nosso model Fabricante. Para isso, criaremos uma nova classe e colocaremos nela uma
+variável(componente) " date_hierarchy = 'criado_em' " onde o "criado_em" precisa ser
+um campo DataField. Essa classe deve ser posicionada antes de implementar nossos
+models no painel do admin, ou seja, antes dos comandos admin.site.register(Model):
+class FabricanteAdmin(admin.ModelAdmin):
+# Cria um filtro de hierarquia com datas
+date_hierarchy = 'criado_em'
+
+Django
+Capítulo 4 - Área Administrativa
+após adicionar essa classe, para de fato implementarmos filtro ser adicionado no site
+admin, precisamos adicionar essa classe como outro parâmetro na linha que possui o
+comando de registrar o nosso model de Fabricante na interface do
+admin("admin.site.register(Fabricante)"): assim:
+admin.site.register(Fabricante,FabricanteAdmin)
+
+Django
+Capítulo 4 - Área Administrativa
+Rode a aplicação e verifique função adcionada.
+
+Django
+Capítulo 4 - Área Administrativa
+Agora adicionaremos uma classe para produto que permitirá ter um filtro por data,
+mostrar mais informações do registro(objeto ou dado) diretamente na listagem e
+mudará a apresentação de campos vazios. Código:
+class ProdutoAdmin(admin.ModelAdmin):
+date_hierarchy = 'criado_em'
+list_display = ('Produto', 'destaque', 'promocao', 'msgPromocao',
+'preco', 'categoria',)
+empty_value_display = 'Vazio'
+Após adicionar a classe, modifique o parâmetro da adição do model de Produto:
+admin.site.register(Produto, ProdutoAdmin)
+
+Django
+Capítulo 4 - Área Administrativa
+Codigo completo:
+
+Django
+Capítulo 4 - Área Administrativa
+Novos componentes
+"list_display = ('Produto', 'destaque', 'promocao', 'msgPromocao', 'preco',
+'categoria',)" servirá para mostrar esses campos diretamente na listagem
+"empty_value_display = 'Vazio'" para mostrar o texto "Vazio" sempre que o campo
+não tiver nada armazenado.
+
+Django
+Capítulo 4 - Área Administrativa
+No nosso modelo de produto permitimos que o campo “msgPromocao” tenha um valor
+nulo na classe modelo Produto.py, porém não possui o parâmetro que permite deixar o
+campo dele no formulário em branco. Para permitir isso devemos adicionar o
+parâmetro "blank=True" no campo desejado. Assim:
+msgPromocao = models.CharField(null=True, max_length=100,
+blank=True)
+Depois podemos usar os comandos de preparação e implementação da modificação
+no banco de dados pelo cmd, com o ambiente virtual ativo:
+python manage.py makemigrations loja
+python manage.py migrate loja
+
+Django
+Capítulo 4 - Área Administrativa
+
+Django
+Capítulo 4 - Área Administrativa
+Outros componentes podem ser usados também para modificar o comportamento da
+classe no admin basta os adicionar na classe. Exemplo de alguns componentes:
+O componente fields permite informar que campos deverão ser exibidos no
+formulário. Os campos do tipo not null deverão ser adicionados na listagem para poder
+enviar os dados sem erro. fields = ('Produto', 'destaque', 'promocao',
+'msgPromocao', 'preco', 'categoria',)
+O componente search_fields define um campo que servirá para o sistema
+pesquisar na lista de registros . search_fields = ('Produto',)
+
+Django
+Capítulo 4 - Área Administrativa
+O componente exclude removerá do formulário os campos indicados, e, se o
+campo pode ser nulo, a validação do blank pode ser ignorado,ou seja mesmo com a
+campo não tendo nada escrito, a interface não impedirá de criar o objeto. exclude =
+('msgPromocao',).
+OBS: Esses componentes podem ser adicionados dentro das classes que criamos para
+modificar o painel do adm, mas tem que estar de acordo com os campos do model. O
+“exclude” e “fields” podem entrar em conflito quando juntos . Além desses, no capítulo
+4.1, do livro de referência possui outros componentes interessantes para se usar
+dependendo do projeto.
+
+Django
+Capítulo 4 - Área Administrativa
+Usando o search_fields = ('Produto',):
+
+Django
+Capítulo 3 - Área Administrativa
+Usando o fields = ('Produto', 'destaque', 'promocao', 'msgPromocao',
+'preco', 'categoria',) :
+
+Django
+Capítulo 3 - Área Administrativa
+Usando o exclude = ('msgPromocao',) :
+
+
+
+
+========== aulas/capitulo-05.pdf ==========
+Django
+Capítulo 5 Trabalhando com Views e Urls
+
+IFRN
+George Azevedo
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+No Django as Views são responsáveis por fazer a conexão entre os models e os
+templates(páginas) de uma aplicação. O navegador(Client) requisita a View que está
+no servidor e a View se comunicar com os models necessários da aplicação e realizará
+a tarefa solicitada. Há dois tipos de requisição, a por HTTP, quando o Cliente interage
+com uma view e recebe como resposta um template, e por AJAX, quando o Cliente
+iterage com uma view e recebe como resposta um JSON.
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+Para começar, vamos organizar a estrutura de maneira correta das Views,
+substituiremos o loja/views.py por uma pasta chamada views e dentro dessa pasta criar
+dois arquivos python chamado __init__ e o outro HomeView.
+Conteudo do __init__.py da pasta loja/views:
+from .HomeView import *
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+O HomeView será a página principal da aplicação que futuramente permitirá visualizar
+os produtos em destaque.
+Conteudo do HomeView.py da pasta loja/views:
+from django.http import HttpResponse
+def home_view(request):
+return HttpResponse('<h1>Olá mundo!</h1>')
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+Agora vamos criar uma pasta chamada loja/urls para conter os URLs do nosso
+app(pasta "loja") e vamos adicionar dois arquivos pyhton, __init__ e HomeUrls.
+Conteúdo do HomeUrls.py da pasta loja/urls:
+from django.urls import path
+from loja.views.HomeView import home_view
+urlpatterns = [
+path("", home_view),
+]
+Conteúdo do __init__.py da pasta loja/urls:
+from .HomeUrls import *
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+Agora vamos adicionar as Urls desse arquivo nas urls no nosso admin, lojaAdmin/urls.py
+Primeiro adicionamos o import seguinte:
+from django.conf.urls import include
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+Em seguida inclua seu arquivo de urls do home no urlpatterns do arquivo
+lojaAdmin/urls.py após a linha: "path('admin/', admin.site.urls),", assim:
+[...]
+urlpatterns = [
+path('admin/', admin.site.urls),
+path('', include('loja.urls.HomeUrls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +
+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+Pra finalizar essa etapa, rode a aplicação. Acesse no link: http://127.0.0.1:8080/ e
+visualize sua pagina
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+Agora faremos uma página que possa receber parâmetros. Para isso, repetiremos o
+processo de adicionar uma View e seus urls. Assim, criaremos uma nova view,
+ProdutoView.py, na pasta loja/views, com o seguinte conteúdo:
+from django.http import HttpResponse
+def list_produto_view(request, id=None):
+return HttpResponse('<h1>Produto de id %s!</h1>' % id)
+o “id=None” indique que o id recebido pode ser None.
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+Em seguida adicionaremos o import do ProdutoView.py no loja/views/__init__.py :
+from .ProdutoView import *
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+Depois criaremos o arquivo que conterá os urls do produto e sera nomeado de
+ProdutoUrls.py, na pasta loja/urls, com o seguinte conteúdo:
+from django.urls import path
+from loja.views.ProdutoView import list_produto_view
+urlpatterns = [
+path("", list_produto_view),
+path("<int:id>", list_produto_view),
+]
+Nesse caso, existem duas linhas de url chamando a mesma view list_produto_view,
+porém o primeiro path não passará um id, o outro permitirá passar.
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+Agora podemos importar os urls do produto no loja/urls/__init__.py:
+from .ProdutoUrls import *
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+Por fim devemos adicionar os urls de produto no lojaAdmin/urls.py, após path "('',
+include('lojaAdmin.urls.HomeUrls')),", o seguinte código destacado:
+[...]
+urlpatterns = [
+path('admin/', admin.site.urls),
+path('', include('loja.urls.HomeUrls')),
+path('produto/', include('loja.urls.ProdutoUrls')),
+][...]
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+em seguida rode a aplicação. e vá no link: http://127.0.0.1:8080/produto/
+para passar um parâmetro basta colocar um número depois da ultima barra, por
+exemplo: 127.0.0.1:8080/produto/31
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+se quiser definir um id padrão para ou uma mensagem padrão para quando o valor for
+recebido basta ir no medoto list_produto_view do ProdutoView.py e antes do return
+colocar:
+if id is None:
+id = 0
+Ou
+if id is None:
+return HttpResponse('<h1>Nenhum id foi informado</h1>')
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+
+Django
+Capítulo 5 - Trabalhando com VIews e Urls
+Um recurso interessante é a definição de nomes dinâmicos no link, vai ser bem útil no
+futuro. São utilizados para alterar um link sem precisar trocá-lo na aplicação inteira.
+Nomes são os parâmetros “name”. Seu uso pode ser observável a seguir:
+from django.urls import path
+from loja.views.ProfileView import list_produto_view
+urlpatterns = [
+path("", list_produto_view, name='produtos'),
+path("<int:id>", list_produto_view, name='produto'),
+]
+
+OBS: os nomes também são utilizados para alterar um link sem precisar trocá-lo na
+aplicação inteira.
+
+
+
+
+========== aulas/capitulo-06.pdf ==========
+Django
+Capítulo 6 Django ORM
+
+IFRN
+George Azevedo
+
+Django
+Capítulo 6 - Django ORM
+
+Mapeamento objeto-relacional (Object-relational mapping - ORM) é uma técnica para
+aproximar o paradigma de desenvolvimento de aplicações orientadas a objetos do
+paradigma do banco de dados relacional(tabelas). Tem sido muito utilizada
+atualmente e pode trazer muitas vantagens para quem a implementa, tais como: fácil
+reutilização do código, manutenibilidade e legibilidade da estrutura da aplicação.
+Através do uso da Orientação a Objetos, conseguiremos criar e mapear um objeto
+para que ele se comporte da forma adequada em uma estrutura de banco de dados
+relacional. Criaremos nossas views e nelas implementamos uma série de métodos para
+trabalhar com as técnicas ORM.
+
+Django
+Capítulo 6 - Django ORM
+
+O primeiro passo é capturar o que virá na url. Será utilizado o método GET do
+request(parâmetro do método view) para que as buscas possam ser compartilhadas
+via url. Adicione a leitura de parâmetros na classe view de produtos,
+loja/views/ProdutoView.py. Assim:
+produto = request.GET.get("produto")
+destaque = request.GET.get("destaque")
+promocao = request.GET.get("promocao")
+categoria = request.GET.get("categoria")
+fabricante = request.GET.get("fabricante")
+OBS: O nome dentro do parêntese indica como deve ser escrito o parâmetro na url do
+navegador para que a variável possa capturar o valor do navegador
+
+Django
+Capítulo 6 - Django ORM
+
+Visualizarmos os dados consultados no console(nesse caso o cmd). Para realizar essa
+consulta e mostrar no console, inclua na view as linhas que realizam a consulta e
+mostram o resultado no console. É necessário importar a classe de produto para a view.
+Import:
+from loja.models import Produto
+Comando para mostrar resultado da consulta no cmd:
+produtos = Produto.objects.all()
+print(produtos)
+OBS: Do jeito que está, mostrará todos os produtos do banco no console, graças ao
+Produto.objects.all()
+
+Django
+Capítulo 6 - Django ORM
+
+Assim, ao realizar a chamada(rodar) à aplicação o sistema mostrará a listagem
+completa de produtos no console. Isso ocorre pois a consulta realizada
+("Produto.objects.all()") ainda não considera os parâmetros, nem necessita.
+
+Django
+Capítulo 6 - Django ORM
+
+Caso a consulta("Produto.objects.all()") seja alterada para "Produto.objects.first()" será
+retornado apenas o primeiro objeto da tabela feita com base no model de Produto.
+
+Django
+Capítulo 6 - Django ORM
+Para visualizar os parâmetros informados na string de consulta no console inclua as seguintes
+linhas para visualizar os parâmetros informados antes do return e do “if id is None:” :
+if destaque is not None:
+print(destaque)
+if produto is not None:
+print(produto)
+if promocao is not None:
+print(promocao)
+if categoria is not None:
+print(categoria)
+if fabricante is not None:
+print(fabricante)
+
+Django
+Capítulo 6 - Django ORM
+
+Faça a consulta para pesquisar os produtos passando o parâmetro de nome do
+produto com o link http://127.0.0.1:8080/produto/?produto=Monitor
+no final do link temos "?produto=Monitor" a interrogação indica que vai ser passado
+parâmetro(s), "produto" tem que ser o nome de uma string colocado no parâmetro do
+GET.get do request, "Monitor" é o valor que atribuímos a esse parâmetro.
+OBS: o Windows 11 está aparecendo porque não
+excluímos o print da variável produtos e Monitor é
+o exato valor que passamos no parâmetro da url
+do navegador.
+
+Django
+Capítulo 6 - Django ORM
+Para adicionar filtros na consulta utilize o método filter() ao invés do first() e como
+parâmetro deve-se passar o campo que filtramos e o valor desse campo que
+desejamos que o objeto a ser procurado tenha. Adicione essa linha substituindo a linha
+do first:
+produtos = Produto.objects.filter(Produto=produto)
+OBS: Esse comando irá procurar objetos da classe
+produto, cujo campo produto seja igual ao valor da
+variável produto(Produto = request.GET.get("produto"))
+
+Django
+Capítulo 6 - Django ORM
+
+Para observar o resultado consulte Monitor 24 polegadas usando o link, ou inclua um
+produto que você tenha inserido no banco de dados. link :
+http://127.0.0.1:8080/produto/?produto=Monitor 24 polegadas
+
+Django
+Capítulo 6 - Django ORM
+
+Agora vamos fazer com que filtre quaisquer Produtos que tenham algo igual a algum
+valor do(s) parâmetro(s) passado na url do navegador. Para isso encadeie os
+comando de condicional (if) desta forma e altere a consulta:
+Parte 1:
+produtos = Produto.objects.all()
+if produto is not None:
+produtos = produtos.filter(Produto=produto)
+if promocao is not None:
+produtos = produtos.filter(promocao=promocao)
+if destaque is not None:
+produtos = produtos.filter(destaque=destaque)
+
+Django
+Capítulo 6 - Django ORM
+Parte 2:
+if categoria is not None:
+produtos = produtos.filter(categoria=categoria)
+if fabricante is not None:
+produtos = produtos.filter(fabricante=fabricante)
+if id is not None:
+produtos = produtos.filter(id=id)
+print(produtos)
+OBS: Neste código, primeiro pegamos todos os produtos do banco, depois filtramos
+objetos que tenham algum valor igual a um dos GET atribuído, ou seja, diferente de
+None. Depois atribuímos no console o objeto achado.
+
+Django
+Capítulo 6 - Django ORM
+
+Antes de rodar vamos colocar o valor de promoção do Windows 11 como False e
+colocar o destaque do Monitor 24 polegados como True no painel do Admin para
+podermos ver mais variações de resultados no console. Use esses links:
+http://127.0.0.1:8080/produto/?promocao=True
+http://127.0.0.1:8080/produto/?destaque=True
+http://127.0.0.1:8080/produto/?categoria=1
+http://127.0.0.1:8080/produto/?categoria=2
+http://127.0.0.1:8080/produto/?fabricante=1
+http://127.0.0.1:8080/produto/?fabricante=2
+http://127.0.0.1:8080/produto/1
+http://127.0.0.1:8080/produto/2
+
+Django
+Capítulo 6 - Django ORM
+Para consultar pelo nome dos conteúdos dos campos de chave estrangeira, ou seja,
+fabricante e categoria, faça o seguinte ajuste no comando de filtragem:
+if categoria is not None:
+produtos = produtos.filter(categoria__Categoria=categoria)
+if fabricante is not None:
+produtos = produtos.filter(fabricante__Fabricante=fabricante)
+OBS: quando ele está só com o nome da classe ele entendia
+que era para procurar o id da classe, porém, com o sufixo
+__Categoria e __Fabricante, ele passa a procurar com base no
+nome
+
+Django
+Capítulo 6 - Django ORM
+
+Links para testar:
+http://127.0.0.1:8080/produto/?categoria=Hardware
+http://127.0.0.1:8080/produto/?categoria=Software
+
+Django
+Capítulo 6 - Django ORM
+Para consultar strings parciais, ou seja, não precisa escrever tudo igual a string original
+de forma similar ao que é feito com o comando like da linguagem SQL, ou seja,
+fazendo uma busca pelo conteúdo ao invés de filtrar apenas as string exatamente
+iguais, utilize o sufixo __contains no campo de filtragem. Faça a alteração na consulta
+do nome do produto, colocando dentro do filter, após o campo, o sufixo __contais.
+Assim:
+produtos = produtos.filter(Produto__contains=produto )
+
+Django
+Capítulo 6 - Django ORM
+
+Outra possibilidade de consulta é fazer comparações com campos de data ou número
+procurando por valores maiores, menores e outras situações. Nesses casos existem
+sufixos para cada caso, entre eles os abaixo listados:
+__in: Cláusula IN(1,2,3). Exemplo: .filter(id__in=[1,2,3]);
+__lt: Cláusula menor que (<). Exemplo: .filter(user__date_joined__lt=datetime.now());
+__lte: Cláusula menor ou igual (<=). Exemplo:
+.filter(user__date_joined__lte=datetime.now());
+__gt: Cláusula maior que (>). Exemplo: .filter(user__date_joined__gt=datetime.now());
+__gte: Cláusula maior ou igual (>=). Exemplo:
+.filter(user__date_joined__gte=datetime.now()).
+
+Django
+Capítulo 6 - Django ORM
+
+Para consultar os produtos cadastrados nos últimos n dias faça as seguintes alterações
+no código, acrescente as bibliotecas de tratamento de data, acrescente um
+parâmetro que indique a quantidade de dias e, inclua o comando de filtragem com o
+sufixo desejado. Exemplo:
+Primeiro inclua os seguintes imports:
+from datetime import timedelta, datetime
+from django.utils import timezone
+Depois inclua mais um GET no método list_produto_view para os dias:
+dias = request.GET.get("dias")
+
+Django
+Capítulo 6 - Django ORM
+Depois coloque a lógica do filtro para consultar os produtos cadastrados nos últimos
+dias, abaixo do “produtos=Produto.objects.all()”:
+if dias is not None:
+now = timezone.now()
+now = now - timedelta(days = int(dias))
+produtos = produtos.filter(criado_em__gte=now)
+
+Django
+Capítulo 6 - Django ORM
+Testando a funcionalidade adicionada com os links:
+Criados há menos 1 dia:
+http://127.0.0.1:8080/produto/?dias=1
+Criados há menos 5 dia:
+http://127.0.0.1:8080/produto/?dias=5
+Criados há menos 25 dia:
+http://127.0.0.1:8080/produto/?dias=25
+
+
+
+
+========== aulas/capitulo-07.pdf ==========
+Django
+Capítulo 7 Trabalhando com Templates
+
+IFRN
+George Azevedo
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Um Template contém as partes estáticas da saída HTML desejada, bem como alguma
+sintaxe especial descrevendo como o conteúdo dinâmico será inserido. É uma estrutura
+html que pode ter arquivos estáticos, estilos(css) e scripts(js), e uma sintaxe que, com
+python, permite se moldar a uma lista ou a um objeto do banco de dados. Nessa
+apresentação faremos um layout padrão para aplicação, a página de listagem de
+produtos na home e na página inicial de produtos e a pagina de edição de um
+produto.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Inicialmente será criado o arquivo base. Ele será o “pai” de todos os templates e é nele
+que será adicionado os arquivos css e js globais, o cabeçalho e o rodapé do site, ou
+seja o estilo e estrutura comum entre as páginas do site, layout. Crie uma pasta
+chamada templates dentro do diretório loja e crie dentro dela um arquivo chamado
+base.html. Primeira parte do conteúdo do loja/templates/base.html:
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,
+shrink-to-fit=no">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Segunda parte do conteúdo do loja/templates/base.html:
+{% block styles %}{% endblock %}
+<title>Loja - {% block title %}{% endblock %}</title>
+</head>
+<body>
+<header></header>
+{% block content %}{% endblock %}
+<footer></footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Explicando as tags adicionadas ao html que fazem parte do template:
+{% load static %}: nessa linha estamos dizendo que o template será capaz de ler
+qualquer arquivo que esteja dentro da pasta static . Essa pasta ainda não foi criada.
+{% block %}{% endblock %}: essa tag permite que criemos blocos dentro de um template
+estruturando a herança de template. Na herança de template, o template filho estende o
+template pai dentro dele e assim todo conteúdo e todos os blocos que existem dentro do
+pai são mesclados no filho.
+{% block content %}{% endblock %}: onde será inserido o conteúdo de html
+{% block styles%}{% endblock %}: onde será inserido conteúdos de estilo(css)
+{% block content %}{% endblock %}: onde será inserido conteúdos de script(js)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Adicione as linhas em destaque dentro da tag head do arquivo
+loja/templates/base.html para incluir o Bootstrap e o Font Awesome ao template base
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Adicione as linhas a seguir -->
+<link rel="stylesheet“
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/
+font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/global.css' %}">
+{% block styles %}{% endblock %}
+<title>Loja - {% block title %}{% endblock %}</title>
+</head>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Adicione o código em destaque a seguir dentro da tag header do arquivo
+loja/templates/base.html (Parte 1)
+<header>
+<nav class="navbar justify-content-end navbar-expand-lg">
+<ul class="nav">
+<li class="nav-item"><a class="nav-link" href="/"><i class="fa fa-home"></i>
+Home</a></li>
+<li class="nav-item"><a class="nav-link" href="/categoria"><i class="fa
+fa-book"></i>Categoria</a></li>
+<li class="nav-item"><a class="nav-link" href="/fabricante"><i class="fa
+fa-book"></i> Fabricante</a></li>
+<li class="nav-item"><a class="nav-link" href="/produto"><i class="fa
+fa-book"></i> Produto</a></li>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Adicione o código em destaque a seguir dentro da tag header do arquivo
+loja/templates/base.html (Parte 2)
+<li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-sign-in"></i>
+Entrar</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-edit"></i>
+Registrar</a></li>
+</ul>
+</nav>
+</header>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Adicione o código em destaque a seguir dentro da tag footer doaquivo
+loja/templates/base.html
+<footer class="page-footer font-small blue">
+<div class="footer-copyright text-center py-3">©2020 Copyright:
+<a href="https://www.casadocodigo.com.br/"> Casadocodigo.com.br</a>
+</div>
+</footer>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Adicione os scripts em destaque a seguir após a tag footer e antes do do bloco {%
+block scripts %}{% endblock %} do arquivo loja/templates/base.html
+</footer>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script
+src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></scrip
+t>
+{% block scripts %}{% endblock %}
+</body>
+</html>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+O primeiro bloco, carrega o bootstrap,
+o font awesome e o css global.css da
+pasta css, dentro da pasta static.
+O segundo bloco contém os links para
+as futuras páginas do nosso projeto.
+O terceiro contém apenas um link
+para o site do nosso livro de referência
+O quarto importa funcionalidades do
+bootstrap, jquery e popper
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora vamos criar a primeira página de fato, crie o arquivo home.html que é a página
+de entrada do site. Crie uma pasta chamada home dentro do diretório templates e,
+dentro dela, crie o arquivo home.html. Parte 1 do conteúdo do
+loja/templates/home/home.html:
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Início{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+<div id="content">Olá mundo</div>
+{% endblock %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do conteúdo do loja/templates/home/home.html:
+{% block scripts %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Explicando a sintaxe que faz parte do template:
+{% extends "base.html" %}: indica que o {% block content %}{% endblock %}
+desse html vai ser posicionado dentro {% block content %}{% endblock %} do
+arquivo base.html, ou seja o home.html herdara os css,js e estrutura html do base.html
+{% block title %}Início{% endblock %}: Adiciona um título para a página no
+navegador
+{% block styles %} <link rel="stylesheet" href="{% static'css/home.css'
+%}">{% endblock %}: Carrega os estilos exclusivos desta página
+{% block scripts %}<script src="{% static 'js/home.js' %}"></script>{%
+endblock %}: Carrega os scripts exclusivos desta página. O arquivo Javascript home.js
+não será inserido nesse momento.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora vamos criar as pastas e arquivos dos nossos estilos requisitados. Primeiro crie uma
+pasta static na raiz da pasta loja. Após criar a pasta static, crie dentro dela uma pasta
+chamada css. e dentro da pasta css crie dois arquivos css, um chamado home e outro
+global. O resultado final deverá ficar próximo a este:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora adicione o conteúdo do loja/static/css/home.css:
+body{
+background-color: #f1f7ff;
+}
+#content form{
+margin-top: calc(50vh, 241px);
+}
+#content form button{
+width: 100%;
+}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora adicione o conteúdo do loja/static/css/global.css:
+Parte 1:
+#content{min-height: calc(100vh - 112px);}
+.image-circle{width: 150px;height: 150px;border-radius: 100%;margin: 10px auto;
+background-size: cover; background-repeat: no-repeat; background-position:
+center;background-color: #ccc;}
+.btn-card {width: 49.5%;float: left;font-size: 0.9em;}
+.btn-card:last-child{margin-left: 1%;}
+.specialties{padding: 0;list-style: none;min-height: 46px;}
+.navigation{margin: 0 auto;}
+.social-container{display: flex;}
+.social-container span{display: flex;align-content: space-between;}
+.social-container a {margin: 0 1%;width: 50%;height: 40px;line-height: 20px;}
+.social-container a, .social-container a:hover, .social-container a:active,
+.social-container a:visited {color: #fff}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora adicione o conteúdo do loja/static/css/global.css:
+Parte 2:
+.social-container a:first-child {margin-left: 0;}
+.social-container a:last-child {margin-right: 0;}
+.social-container a#facebook, .social-container a#facebook:visited{background-color:
+#3b5999;}
+.social-container a#google, .social-container a#google:visited{background-color:
+#dd4b39;}
+.social-container a#facebook:hover, .social-container a#facebook:active{background-color:
+#383871;}
+.social-container a#google:hover, .social-container a#google:active{background-color:
+#9e3e2c;}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Código completo do loja/static/css/global.css:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora ajuste a view Home(loja/views/HomeView.py) para ao invés de apresentar
+diretamente a mensagem Olá Mundo! acessar o arquivo de template Home.html
+criado.
+Para isso pode substituir o import do HttpResponse para o render, Assim:
+from django.shortcuts import render
+
+E mudar o return para achar o template com o render:
+return render(request, template_name='home/home.html', status=200)
+
+Código completo:
+from django.shortcuts import render
+def home_view(request):
+return render(request, template_name='home/home.html', status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+após modificar a função da view Home e substituir o import, rode a aplicação e acesse
+o link: http://127.0.0.1:8080
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Vamos introduzir na página de entrada uma caixa de texto para busca de produtos.
+Para isso substitua o conteúdo do {% block content %}{% endblock %}, “<div
+id="content">Olá mundo</div>”, do loja/templates/home/home.html para o
+seguinte:
+Parte 1 do conteúdo do loja/templates/home/home.html:
+<div id="content">
+<div class="container">
+<div class="row">
+<div class="col-sm-12 col-md-6 col-lg-6 offset-sm-0">
+<form action={% url 'home' %} method="GET">
+<h3>Buscar produtos</h3>
+<div class="form-row">
+<div class="col form-group">
+<input type="text" class="form-control" name="produto"
+placeholder="nome do produto">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do conteúdo do loja/templates/home/home.html:
+</div>
+</div>
+<div class="form-row">
+<div class="col form-group mb-3">
+<button type="submit" class="btn btn-primary">Buscar</button>
+</div>
+</div>
+</form>
+</div></div></div></div>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Código completo do loja/templates/home/home.html:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+A sintaxe do form action utilizada usa o nome da Url. Para tal, tem que ser incluído o
+nome da Url no arquivo de Urls. Ou seja, para utilizar a sintaxe abaixo no arquivo
+home.html
+<form action={% url 'home' %} method="GET">
+
+É necessário definir a Url usando a sintaxe abaixo no arquivo
+HomeUrls.py(loja/urls/HomeUrls.py) adicionando o parâmetro name.
+urlpatterns = [
+path("", home_view, name= 'home'),
+]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora rode novamente a aplicação e acesse o link: http://127.0.0.1:8080 para conferir
+as alterações
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora vamos fazer com que ma view da Home(loja/views/HomeView.py) seja filtrado
+os produtos com base no nome e mostre eles na página do site. Primeiro importamos a
+classe modelo de produto assim:
+from loja.models import Produto
+Em seguida dentro da função home_view adicionaremos a lógica de filtragem com
+base no nome, assim:
+produto = request.GET.get("produto")
+produtos = Produto.objects.all()
+if produto is not None:
+produtos = produtos.filter(Produto__contains=produto)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Após adicionar a lógica, colocaremos, abaixo e fora do if, os resultados em formato de
+context para que possamos passar a lista de objetos filtrados para o template, assim:
+context = {
+'produtos': produtos
+}
+Agora, para finalizar basta adicionar esse context como parâmetro do retorno da nossa
+função, assim:
+return render(request, template_name='home/home.html',
+context=context, status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Resultado final:
+from django.shortcuts import render
+from loja.models import Produto
+def home_view(request):
+produto = request.GET.get("produto")
+produtos = Produto.objects.all()
+if produto is not None:
+produtos = produtos.filter(Produto__contains=produto)
+context = {
+'produtos': produtos
+}
+return render(request, template_name='home/home.html', context=context, status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora vamos adicionar a lista filtrada na nossa página home.html. Para isso, no block
+content, coloque, abaixo do fechamento da div class=”row”, a seguinte estrutura html.
+Parte 1 da estrutura:
+{% block content %}
+<div id="content">
+<div class="container">
+<div class="row">
+<div class="col-sm-12 col-md-6 col-lg-6 offset-sm-0">
+<form action={% url 'home' %} method="GET">
+<h3>Buscar produtos</h3>
+<div class="form-row">
+<div class="col form-group">
+<input type="text" class="form-control" name="produto"
+placeholder="nome do produto">
+</div>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2:
+</div><div class="form-row"><div class="col form-group mb-3"><button type="submit"
+class="btn btn-primary">Buscar</button></div></div></form></div></div>
+<!--Adicione as linhas em destaque abaixo-->
+<div class="alert alert-info">Produtos encontrados [{{ produtos | length
+}}]</div>
+<div class="row">
+{% for prod in produtos %}
+<div class="col-xs-9 col-md-3 col-lg-3 ">
+<div class="card mb-4">
+<div class="image-circle" style="background-image:
+url('/media/{{prod.image}}');"></div>
+<div class="card-body">
+<h5 class="card-title">{{prod.Produto}}</h5>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 3:
+<a href={% url 'home' %} class="btn btn-primary btn-card">
+<i class="fa fa-search"></i> Ver
+</a>
+<button class="btn btn-warning btn-card">
+<i class="fa fa-heart"></i> Favoritar</button>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Explicando a sintaxe que faz parte do template:
+[{{ produtos | length }}] esse é um comando para pegar o tamanho da lista
+passada no context( produtos é o nome que colocamos entre aspas simples).
+{% for prod in produtos %} esse comando percorre a lista e o {% endfor %}
+finaliza o loop
+{{prod.Produto}} ou {{prod.imaga}} é a forma de acessar o atributo dos objetos
+acessados no for da lista, esse primeiro acessa o nome, e o segudo o nome da imagem
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Em seguida pode rodar a aplicação novamente e teste a pesquisar.
+OBS: quando
+clicar em buscar
+o campo de
+pesquisa é limpo
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora iremos faz a implementação do CRUD de produtos será. Iniciaremos com a
+apresentação da listagem de produtos de forma similar ao que foi feito no home.
+Crie dentro de templates uma pasta produto e dentro dela um arquivo produto.html,
+loja/templates/produto/produto.html
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Iremos faz a listagem do crud semelhante a listagem do home, para isso Coloque o
+código abaixo no arquivo loja/templates/produto/produto.html. Parte 1 do código:
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Início{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+<div id="content">
+<div class="container">
+<div class="alert alert-info">Produtos encontrados [{{ produtos |
+length }}]</div>
+{% for prod in produtos %}
+<div class="row">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do código loja/templates/produto/produto.html:
+<h5 class="col-md-3">{{prod.Produto}}</h5>
+<a href={% url 'produto' prod.id %} class=
+"btn btn-primary mb-2 mr-2"><i class="fa fa-search"></i> Ver</a>
+<a href={% url 'produto' prod.id %} class=
+"btn bg-secondary mb-2 mr-2"><i class="fa fa-edit"></i> Editar</a>
+<a href={% url 'produto' prod.id %} class="btn btn-warning mb-2">
+<i class="fa fa-sign-in"></i> Apagar</a>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+código loja/templates/produto/produto.html:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+No arquivo ProdutoView.py, loja/views/ProdutoView.html, ajuste o método
+list_produto_view para carregar esse novo template. Apesar da interface não precisar
+ter todas as consultas da função, pode manter, comentar ou apagar o código
+existente sem problema. Adicione e mantenha o que está destacado para a listagem
+ser realizada. Parte 1 do código:
+from django.shortcuts import render # Retire from django.http import HttpResponse
+from loja.models import Produto
+from datetime import timedelta, datetime
+from django.utils import timezone
+def list_produto_view(request, id=None):
+produto = request.GET.get("produto")
+destaque = request.GET.get("destaque")
+promocao = request.GET.get("promocao")
+categoria = request.GET.get("categoria")
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do código loja/views/ProdutoView.py:
+fabricante = request.GET.get("fabricante")
+dias = request.GET.get("dias")
+produtos = Produto.objects.all()
+if produto is not None:
+produtos = produtos.filter(Produto__contains=produto)
+if promocao is not None:
+produtos = produtos.filter(promocao=promocao)
+if destaque is not None:
+produtos = produtos.filter(destaque=destaque)
+if categoria is not None:
+produtos = produtos.filter(categoria__Categoria=categoria)
+if fabricante is not None:
+produtos = produtos.filter(fabricante__Fabricante=fabricante)
+if dias is not None:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 3 do código loja/views/ProdutoView.py:
+now = timezone.now()
+now = now - timedelta(days = int(dias))
+produtos = produtos.filter(criado_em__gte=now)
+if id is not None:
+produtos = produtos.filter(id=id)
+print(produtos)
+# Adicione para definir o contexto e carregar o template
+context = {
+'produtos': produtos
+}
+return render(request, template_name='produto/produto.html',
+context=context, status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+código loja/views/ProdutoView.py:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+No arquivo ProdutoUrls.py, loja/urls/ProdutoUrls.py, adicione o name para que as urls da
+função consigam ser localizadas.
+from django.urls import path
+from loja.views.ProdutoView import list_produto_view
+urlpatterns = [
+path("", list_produto_view, name= 'produto'),
+path("<int:id>", list_produto_view, name= 'produto'),
+]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Para acessar o CRUD de produto, rode a aplicação acesse http://127.0.0.1:8080/ e
+clique no link de produto na página principal. A página com a listagem de produtos
+aparece.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora Será desenvolvida agora a interface de edição de produtos. Inicialmente será
+incluído na interface apenas 5 campos, são eles: id (identificador do produto), Produto
+(descrição do produto), destaque, promocao e msgPromocao (mensagem de
+promoção). Adicione na pasta templates/produto o arquivo produto-edit.html que
+apresentará a visualização do produto para edição. Inclua o seguinte código no
+arquivo loja/templates/produto/produto-edit.html:
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Início{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+<div id="content">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do código do loja/templates/produto/produto-edit.html:
+<div class="container">
+<form method="POST" action= "/produto/edit" >
+{% csrf_token %}
+<div class="row">
+<input type="hidden" value="{{produto.id}}" name="id">
+<h5 for="Produto" class="col-md-2">Produto</h5>
+<input value="{{produto.Produto}}" name="Produto">
+</div>
+<div class="row">
+<div class="col-md-2">
+{% if produto.destaque %}
+<input type="checkbox" checked name="destaque" >
+{% else %}
+<input type="checkbox" name="destaque" >
+{% endif %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 3 do código do loja/templates/produto/produto-edit.html:
+<label for="destaque">Destaque</label>
+</div>
+</div>
+<div class="row">
+<div class="col-md-2">
+{% if produto.promocao %}
+<input type="checkbox" checked name="promocao" >
+{% else %}
+<input type="checkbox" name="promocao" >
+{% endif %}
+<label for="promocao">Promoção</label>
+</div>
+</div>
+<div class="row">
+<label for="msgPromocao" class="col-md-2">Msg Promoção</label>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 4 do código do loja/templates/produto/produto-edit.html:
+<input value="{{produto.msgPromocao}}" name="msgPromocao">
+</div>
+<div class="row">
+<button type="submit" class="btn btn-danger col-md-2 mt-3 mr-2"><i class="fa
+fa-check"></i> Salvar</button>
+<a href={% url 'produto' %} class="btn bg-secondary col-md-2 mt-3"><i class="fa
+fa-rotate-left"></i> Retornar</a>
+</div>
+</form>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+código do
+loja/templates/produto/produto-edit.html:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Os ícones usados no nosso projeto de coração, lupa, editar, e outros, vem do site
+https://fontawesome.com/search?o=r&m=free&s=solid&f=classic que utilizamos no
+loja/templates/base.html no link com href sendo
+No exemplo, o botão de salvar usa um fa-check e o botão de retornar fa-rotate-left.
+<div class="row">
+<button type="submit" class="btn btn-danger col-md-2 mt-3mr-2"><i class="fa
+fa-check"></i> Salvar</button>
+<a href={% url 'produto' %} class="btn bg-secondary col-md-2 mt-3"><i class="fa
+fa-rotate-left"></i> Retornar</a>
+</div>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora nas funções da view de produto terá uma diferença em relação a listagem,
+usaremos dois métodos, um apenas para montar a interface(função GET) e outro para
+modificar o banco(função POST). Primeiro vamos adicionar na view de produto a
+função que irá carregar os dados do produto a ser editado. Adicione em
+loja/views/ProdutoView.py o código abaixo:
+def edit_produto_view(request, id=None):
+produtos = Produto.objects.all()
+if id is not None:
+produtos = produtos.filter(id=id)
+produto = produtos.first()
+print(produto)
+context = { 'produto': produto }
+return render(request, template_name='produto/produto-edit.html', context=context,
+status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+No arquivo ProdutoUrls.py adicione os novos path para essa nova função criada.
+Adicione o trechos destacados abaixo no arquivo loja/urls/ProdutoUrls.py:
+from django.urls import path
+from loja.views.ProdutoView import list_produto_view, edit_produto_view
+urlpatterns = [
+path("", list_produto_view, name= 'produto'),
+path("<int:id>", list_produto_view, name= 'produto'),
+path("edit/<int:id>", edit_produto_view, name= 'edit_produto'),
+]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Por fim volte no html loja/templates/produto/produto.html e modifique na âncora do
+botão editar o url ‘produto’ para o mesmo valor do name da url da pagina
+editar(‘edit_produto’) do path associado a função GET da view do
+editar(edit_produto_view)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Execute a aplicação, vá na listagem do crud e clique no botão editar para ver a nova
+interface.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Para que o botão de salvar funcione, precisamos adicionar a programação do evento
+POST na função de edição. Adicione no arquivo loja/views/ProdutoView.py a
+funcionalidade de edição. Ela será implementada em uma nova função denominada
+edit_produto_postback que será disparada ao clicar o botão de submit da interface de
+edição.
+# inclua o acesso ao redirect
+from django.shortcuts import render, redirect
+from loja.models import Produto
+from datetime import timedelta, datetime
+from django.utils import timezone
+def list_produto_view(request, id=None): [...]
+def edit_produto_view(request, id=None): [...]
+# adicione a função que trata o postback da interface de edição
+def edit_produto_postback(request, id=None):
+# Processa o post back gerado pela action
+
+Django
+Capítulo 7 - Trabalhando com Templates
+parte 2 do código do loja/views/ProdutoView.py:
+if request.method == 'POST':
+# Salva dados editados
+id = request.POST.get("id")
+produto = request.POST.get("Produto")
+destaque = request.POST.get("destaque")
+promocao = request.POST.get("promocao")
+msgPromocao = request.POST.get("msgPromocao")
+print("postback")
+print(id)
+print(produto)
+print(destaque)
+print(promocao)
+print(msgPromocao)
+try:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+parte 3 do código do loja/views/ProdutoView.py:
+obj_produto = Produto.objects.filter(id=id).first()
+obj_produto.Produto = produto
+obj_produto.destaque = (destaque is not None)
+obj_produto.promocao = (promocao is not None)
+if msgPromocao is not None:
+obj_produto.msgPromocao = msgPromocao
+obj_produto.save()
+print("Produto %s salvo com sucesso" % produto)
+except Exception as e:
+print("Erro salvando edição de produto: %s" % e)
+return redirect("/produto")
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Código do loja/views/ProdutoView.py:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+No arquivo loja/urls/ProdutoUrls.py inclua o acesso a função do postback:
+from django.urls import path
+from loja.views.ProdutoView import list_produto_view, edit_produto_view,
+edit_produto_postback
+urlpatterns = [
+path("", list_produto_view, name= 'produto'),
+path("<int:id>", list_produto_view, name= 'produto'),
+path("edit/<int:id>", edit_produto_view, name= 'edit_produto'),
+path("edit", edit_produto_postback, name= 'edit_produto_postback'),
+]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Acessa a página e faça a edição de um dos produtos:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora será realizado a operação de Ver. Adicione no arquivo ProdutoView.py a
+funcionalidade de visualização de detalhes do produto, primeiro crie o método
+detais_produto_view. A implementação dessa função é similar a edit_produto_view pois
+ela localiza e carrega o produto e passa para o template. Adicione no final do arquivo
+loja/views/ProdutoView.py a seguinte função para isso:
+def details_produto_view(request, id=None):
+# Processa o evento GET gerado pela action
+produtos = Produto.objects.all()
+if id is not None:
+produtos = produtos.filter(id=id)
+produto = produtos.first()
+print(produto)
+context = {‘produto': produto}
+return render(request, template_name='produto/produto-details.html', context=context,
+status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Código do arquivo loja/views/ProdutoView.py:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora é preciso criar na pasta template de produto o arquivo html que visualiza todos
+os detalhes do produto. Por simplificação iremos apenas copiar a interface utilizada na
+interface de edição e acrescentar a imagem do produto. Alguns campos dos produtos
+ainda não incluídos serão adicionados posteriormente.
+Faça uma cópia do arquivo produto-edit.html com nome produto-details.html e faça
+os seguintes ajustes:
+(1) retire a TAG form pois a interface não vai submeter dados de retorno;
+(2) Para manter a visualização similar, deixe os inputs, mas acrescente a opção
+disabled de forma que o usuário não possa usar o campo para edição e
+(3) Retire o botão de Salvar.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+O conteudo html do loja/templates/produto/produto-details.html deve ficar como o
+código apresentado a seguir. As alterações citadas no slide anterior estão em
+destaque.
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Início{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+<div id="content">
+<div class="container">
+<!-- <form method="POST" action= "/produto/edit" >
+{% csrf_token %}-->
+<div class="row">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do código html do loja/templates/produto/produto-details.html:
+
+<!--<input type="hidden" value="{{produto.id}}" name="id">-->
+<h5 for="Produto" class="col-md-2">Produto</h5>
+<input value="{{produto.Produto}}" name="Produto" disabled>
+</div>
+<div class="row">
+<div class="col-md-2">
+{% if produto.destaque %}
+<input type="checkbox" checked name="destaque" disabled>
+{% else %}
+<input type="checkbox" name="destaque" disabled>
+{% endif %}
+<label for="destaque">Destaque</label>
+</div>
+</div>
+<div class="row">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 3 do código html do loja/templates/produto/produto-details.html:
+
+<div class="col-md-2">
+{% if produto.promocao %}
+<input type="checkbox" checked name="promocao" disabled>
+{% else %}
+<input type="checkbox" name="promocao" disabled>
+{% endif %}
+<label for="promocao">Promoção</label>
+</div>
+</div>
+<div class="row">
+<label for="msgPromocao" class="col-md-2">Msg Promoção</label>
+<input value="{{produto.msgPromocao}}" name="msgPromocao" disabled>
+</div>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 4 do código html do loja/templates/produto/produto-details.html:
+
+<div class="row mt-3">
+<img class="border border-secondary" width="200px"
+src="/media/{{produto.image}}"/>
+</div>
+<div class="row">
+<!--<button type="submit" class="btn btn-danger col-md-2 mt-3
+mr-2"><i class="fa fa-check"></i> Salvar</button>-->
+<a href={% url 'produto' %} class="btn bg-secondary col-md-2
+mt-3"><i class="fa fa-rotate-left"></i> Retornar</a>
+</div>
+<!--</form>-->
+</div>
+</div>
+{% endblock %}{% block scripts %}<script src="{% static 'js/home.js' %}"></script>{%
+endblock %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+código html completo do loja/templates/produto/produto-details.html:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora inclua no arquivo de urls, loja/urls/ProdutoUrls.py, o leiaute da chamada para a
+interface de detalhe do produto e o import da view.
+from django.urls import path
+from loja.views.ProdutoView import list_produto_view, edit_produto_view,
+edit_produto_postback, details_produto_view
+urlpatterns = [
+path("", list_produto_view, name= 'produto'),
+path("<int:id>", list_produto_view, name= 'produto'),
+path("edit/<int:id>", edit_produto_view, name= 'edit_produto'),
+path("edit", edit_produto_postback, name= 'edit_produto_postback'),
+path("details/<int:id>", details_produto_view, name= 'details_produto'),
+]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+E no template loja/templates/produto/produto.html altere a url a ser chamada no
+botão de Ver para 'details_produto', como no exemplo a seguir:
+{% extends "base.html" %}
+[...]
+{% for prod in produtos %}
+<div class="row">
+<h5 class="col-md-3">{{prod.Produto}}</h5>
+<a href={% url 'details_produto' prod.id %} class="btn btn-primary
+mb-2 mr-2"><i class="fa fa-search"></i> Ver</a>
+<a href={% url 'edit_produto' prod.id %} class="btn bg-secondary
+mb-2 mr-2"><i class="fa fa-edit"></i> Editar</a>
+<a href={% url 'produto' prod.id %} class="btn btn-warning mb-2"
+><i class="fa fa-trash"></i> Apagar</a>
+</div>
+{% endfor %}
+[...]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora rode a aplicação e acione a funcionalidade editar
+Observe a
+mudança
+na URL e a
+tela de
+detalhe de
+produto
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Continuando agora será realizado a operação do botão de Excluir que deve abrir uma
+página para mostrar todos os detalhes do produto. Adicione no arquivo
+loja/views/ProdutoView.py a funcionalidade de visualização do produto a ser excluído
+de forma que o usuário confira o que ele vai excluir. Ela será implementada em uma
+nova função denominada delete_produto_view que será disparada ao clicar o botão
+de Excluir da interface. A implementação dessa função é similar a edit_produto_view
+pois ela localiza e carrega o produto e passa para o template produto-delete.html que
+será criado. Adicione no final do arquivo a função a seguir:
+def delete_produto_view(request, id=None):
+# Processa o evento GET gerado pela action
+produtos = Produto.objects.all()
+if id is not None:
+produtos = produtos.filter(id=id)
+produto = produtos.first()
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 da função delete_produto_view do arquivo loja/views/ProdutoView.py:
+print(produto)
+context = {'produto': produto}
+return render(request, template_name='produto/produto-delete.html', context=context,
+status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora é preciso criar na pasta template de produto o arquivo html, produto-delete.html
+, que visualiza o produto a ser excluído para que o usuário possa conferir sua exclusão.
+Nessa interface haverá o botão de excluir para realizar a operação. Por simplificação
+iremos apenas copiar a interface utilizada na interface de edição e ajustar a
+funcionalidade do botão.
+Faça uma cópia do arquivo produto-edit.html com nome produto-delete.html e faça
+os seguintes ajustes:
+(1) acrescente a opção disabled nos inputs para ter uma apresentação similar as
+demais interfaces
+(2) ajuste a action do form para "/produto/delete"
+(3) substitua o texto do botão de Salvar para Excluir. As alterações estão
+destacadas no código a seguir.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+O conteúdo html do loja/templates/produto/produto-delete.html deve ficar como o
+código apresentado a seguir. As alterações citadas no slide anterior estão em
+destaque.
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Início{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+<div id="content">
+<div class="container">
+<form method="POST" action= "/produto/delete" >
+{% csrf_token %}
+<div class="row">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do conteúdo html do loja/templates/produto/produto-delete.html:
+<input type="hidden" value="{{produto.id}}" name="id">
+<h5 for="Produto" class="col-md-2">Produto</h5>
+<input value="{{produto.Produto}}" name="Produto" disabled>
+</div>
+<div class="row">
+<div class="col-md-2">
+{% if produto.destaque %}
+<input type="checkbox" checked name="destaque" disabled>
+{% else %}
+<input type="checkbox" name="destaque" disabled>
+{% endif %}
+<label for="destaque">Destaque</label>
+</div>
+</div>
+<div class="row">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 3 do conteúdo html do loja/templates/produto/produto-delete.html:
+<div class="col-md-2">
+{% if produto.promocao %}
+<input type="checkbox" checked name="promocao" disabled>
+{% else %}
+<input type="checkbox" name="promocao" disabled>
+{% endif %}
+<label for="promocao">Promoção</label>
+</div>
+</div>
+<div class="row">
+<label for="msgPromocao" class="col-md-2">Msg Promoção</label>
+<input value="{{produto.msgPromocao}}" name="msgPromocao" disabled>
+</div>
+<div class="row">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 4 do conteúdo html do loja/templates/produto/produto-delete.html:
+<button type="submit" class="btn btn-danger col-md-2 mt-3 mr-2"><i class="fa
+fa-check"></i> Excluir</button>
+<a href={% url 'produto' %} class="btn bg-secondary col-md-2 mt-3"><i
+class="fa fa-rotate-left"></i> Retornar</a>
+</div>
+</form>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+O conteúdo html do loja/templates/produto/produto-delete.html:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora inclua no arquivo de urls, loja/urls/ProdutoUrls.py, o leiaute da chamada para a
+interface de excluir produto. Adicione o código destacado abaixo:
+from django.urls import path
+from loja.views.ProdutoView import list_produto_view, edit_produto_view,
+edit_produto_postback, details_produto_view, delete_produto_view
+urlpatterns = [
+path("", list_produto_view, name='produto'),
+path("<int:id>", list_produto_view, name='produto'),
+path("edit/<int:id>", edit_produto_view, name='edit_produto'),
+path("edit", edit_produto_postback, name='edit_produto_postback'),
+path("details/<int:id>", details_produto_view, name='details_produto'),
+path("delete/<int:id>", delete_produto_view, name='delete_produto'),
+]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+E no template de produto, loja/templates/produto/produto.html, altere a url a ser
+chamada pelo botão de Excluir para produto/delete. Como no exemplo abaixo:
+{% extends "base.html" %}
+[...]
+{% for prod in produtos %}
+<div class="row"><h5 class="col-md-3">{{prod.Produto}}</h5>
+<a href={% url 'details_produto' prod.id %} class="btn btn-primary mb-2 mr-2"><i
+class="fa fa-search"></i> Ver</a>
+<a href={% url 'edit_produto' prod.id %} class="btn bg-secondary mb-2 mr-2"><i
+class="fa fa-edit"></i> Editar</a>
+<a href={% url 'delete_produto' prod.id %} class="btn btn-warning mb-2"><i
+class="fa fa-trash"></i> Apagar</a>
+</div>
+{% endfor %}
+[...]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Rode a aplicação novamente e confira a aplicação.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+É necessário agora adicionar a função que vai tratar o postback da interface de excluir
+pois é ela que efetivamente realiza a exclusão da informação no banco de dados.
+Adicione no final do arquivo loja/views/ProdutoView.py a funcionalidade de exclusão.
+Ela será implementada em uma nova função denominada delete_produto_postback
+que será disparada ao clicar o botão de submit da interface de exclusão.
+# adicione a função que trata o postback da interface de exclusão
+def delete_produto_postback(request, id=None):
+# Processa o post back gerado pela action
+if request.method == 'POST':
+# Salva dados editados
+id = request.POST.get("id")
+produto = request.POST.get("Produto")
+print("postback-delete")
+print(id)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 da função delete_produto_postback do arquivo loja/views/ProdutoView.py:
+try:
+Produto.objects.filter(id=id).delete()
+print("Produto %s excluido com sucesso" % produto)
+except Exception as e:
+print("Erro salvando edição de produto: %s" % e)
+return redirect("/produto")
+
+Django
+Capítulo 7 - Trabalhando com Templates
+No arquivo ProdutoUrls.py inclua o acesso a função do postback.
+from django.urls import path
+from loja.views.ProdutoView import list_produto_view, edit_produto_view,
+edit_produto_postback, details_produto_view, delete_produto_view, delete_produto_postback
+urlpatterns = [
+path("", list_produto_view, name='produto'),
+path("<int:id>", list_produto_view, name='produto'),
+path("edit/<int:id>", edit_produto_view, name='edit_produto'),
+path("edit", edit_produto_postback, name='edit_produto_postback'),
+path("details/<int:id>", details_produto_view, name='details_produto'),
+path("delete/<int:id>", delete_produto_view, name='delete_produto'),
+path("delete", delete_produto_postback, name='delete_produto_postback'),
+]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Rode a aplicação e acione o excluir. Após a chamada ao comando de exclusão a
+lista de produtos irá aparecer sem o produto excluído
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora realizaremos a operação de Create. Adicione o código abaixo no final do
+loja/views/ProdutoView.py a funcionalidade de carregar a interface de novo
+produto(Função GET). Ela será implementada em uma nova função denominada
+create_produto_view que será disparada ao clicar o botão de Novo Produto. A
+implementação inicial dessa função irá apenas chamar o template
+produto-create.html que será criado.
+# adicione a função que chama a interface de criar produto
+# no final do arquivo
+def create_produto_view(request, id=None):
+return render(request, template_name='produto/produto-create.html',status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora inclua no arquivo de urls, loja/urls/ProdutoUrls.py, o leiaute da chamada para a
+interface de criar produto, adicionando no código os trechos destacados, assim:
+from django.urls import path
+from loja.views.ProdutoView import list_produto_view, edit_produto_view,
+edit_produto_postback, details_produto_view, delete_produto_view,create_produto_view
+urlpatterns = [
+path("", list_produto_view, name= 'produto'),
+path("<int:id>", list_produto_view, name= 'produto'),
+path("edit/<int:id>", edit_produto_view, name= 'edit_produto'),
+path("edit", edit_produto_postback, name= 'edit_produto_postback'),
+path("details/<int:id>", details_produto_view, name= 'details_produto'),
+path("delete/<int:id>", delete_produto_view, name= 'delete_produto'),
+path("create", create_produto_view, name= 'create_produto'),
+]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Para tal será incluído um botão Novo Produto na interface de produto,
+loja/templates/produto/produto.html, que dará acesso a interface de criar produto.
+Altere o arquivo produto.html para inserir o botão. Esse botão irá chamar a url
+create_produto e será utilizado o icone fa-plus.
+{% extends "base.html" %}
+[...]
+<div id="content">
+<div class="container">
+<div class="alert alert-info">
+<a href={% url 'create_produto' %} class="btn btn-primary mr-2"> <i class="fa
+fa-plus"></i> Novo Produto</a>
+Produtos encontrados [{{ produtos | length }}]
+</div>
+{% for prod in produtos %}
+[...]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Trecho do código com a modificação:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora é preciso criar na pasta template de produto o arquivo html que permite
+informar os dados do produto a ser incluído. Nessa interface haverá o botão de inserir
+para realizar a operação. Por simplificação iremos copiar a interface utilizada na
+interface de edição e ajustar a funcionalidade do botão. Faça uma cópia do arquivo
+produto-edit.html com nome produto-create.html e faça os seguintes ajustes:
+(1) inclua no form a opção enctype="multipart/form-data" para informar que vai
+ser passados arquivos,
+(2) ajuste a action do form para "/produto/create",
+(3) Inclua campos para o preço e a imagem do produto,
+(4) retire o campo de id do produto, os comandos if-else dos checkbox e os values
+dos demais e
+(5) substitua o texto do botão de Salvar para Inserir. As alterações estão
+destacadas no código a seguir.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 1 do código do loja/templates/produto/produto-create.html:
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Início{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+<div id="content">
+<div class="container">
+<form method="POST" enctype="multipart/form-data" action= "/produto/create" >
+{% csrf_token %}
+<div class="row">
+<!--<input type="hidden" value="{{produto.id}}" name="id">-->
+<h5 for="Produto" class="col-md-2">Produto</h5>
+<input name="Produto">
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do código do loja/templates/produto/produto-create.html:
+</div>
+<div class="row">
+<div class="col-md-2">
+<input type="checkbox" name="destaque" >
+<label for="destaque">Destaque</label>
+</div>
+</div>
+<div class="row">
+<div class="col-md-2">
+<input type="checkbox" name="promocao" >
+<label for="promocao">Promoção</label>
+</div>
+</div>
+<div class="row">
+<label for="msgPromocao" class="col-md-2">Msg Promoção</label>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 3 do código do loja/templates/produto/produto-create.html:
+<input name="msgPromocao">
+</div>
+<div class="row mt-2">
+<label for="preco" class="col-md-2">Preço</label>
+<input name="preco">
+</div>
+<div class="row mt-2">
+<label for="image" class="col-md-2">Imagem</label>
+<input type="file" name="image">
+</div>
+<div class="row">
+<button type="submit" class="btn btn-danger col-md-2 mt-3 mr-2"><i
+class="fa fa-check"></i> Inserir</button>
+<a href={% url 'produto' %} class="btn bg-secondary col-md-2 mt-3"><i
+class="fa fa-rotate-left"></i> Retornar</a>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 4 do código do loja/templates/produto/produto-create.html:
+</div>
+</form>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Código do loja/templates/produto/produto-create.html:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Execute a aplicação e observe o botão de Novo produto e visualize a interface de criar
+produto. A interface ainda não está salvando pois não foi criado ainda o tratamento
+para o evento POST da interface.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+É necessário agora adicionar o tratamento do postback da interface de criar para que
+as informações digitadas sejam efetivamente inseridas no banco de dados.
+Observe que n implementação do Edit e do Delete a função GET tinha parâmetros e a
+função POST não tinha. No caso do CREATE nenhum dos dois tipos utiliza parâmetros na
+URL portanto vão compartilhar a mesma função. Dessa forma será necessário alterar a
+função já existente create_produto_view para que ela faça a funcionalidade de POST.
+Altere no arquivo loja/views/ProdutoView.py a função referida com as alterações
+destacadas a seguir.
+from django.shortcuts import render, redirect
+from loja.models import Produto
+from datetime import timedelta, datetime
+from django.utils import timezone
+# inclua as bibliotecas FileSystemStorage
+from django.core.files.storage import FileSystemStorage
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 1 da modificação da função do loja/views/ProdutoView.py:
+[...]
+def create_produto_view(request, id=None):
+# Processa o post back gerado pela action
+if request.method == 'POST':
+produto = request.POST.get("Produto")
+destaque = request.POST.get("destaque")
+promocao = request.POST.get("promocao")
+msgPromocao = request.POST.get("msgPromocao")
+preco = request.POST.get("preco")
+image = request.POST.get("image")
+print("postback-create")
+print(produto)
+print(destaque)
+print(promocao)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 da modificação da função do loja/views/ProdutoView.py:
+print(msgPromocao)
+print(preco)
+print(image)
+try:
+obj_produto = Produto()
+obj_produto.Produto = produto
+obj_produto.destaque = (destaque is not None)
+obj_produto.promocao = (promocao is not None)
+if msgPromocao is not None:
+obj_produto.msgPromocao = msgPromocao
+obj_produto.preco = 0
+if (preco is not None) and ( preco != ""):
+obj_produto.preco = preco
+obj_produto.criado_em = timezone.now()
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 3 da modificação da função do loja/views/ProdutoView.py:
+obj_produto.alterado_em = obj_produto.criado_em
+# Se for anexado arquivo, salva na pasta e guarda nome no objeto
+if request.FILES is not None:
+num_files = len(request.FILES.getlist('image'))
+if num_files > 0:
+imagefile = request.FILES['image']
+print(imagefile)
+fs = FileSystemStorage()
+filename = fs.save(imagefile.name, imagefile)
+if (filename is not None) and (filename != ""):
+obj_produto.image = filename
+obj_produto.save()
+print("Produto %s salvo com sucesso" % produto)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 4 da modificação da função do loja/views/ProdutoView.py:
+except Exception as e:
+print("Erro inserindo produto: %s" % e)
+return redirect("/produto")
+return render(request, template_name='produto/produto-create.html',status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Código modificado do loja/views/ProdutoView.py:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Roda a aplicação e crie um produto
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Até o momento só salvamos produtos sem associação com a categoria ou fabricante.
+Agora iremos adicionar a relação das entidades na edição do produto. Primeiro, inclua
+acesso aos modelos de fabricante e categoria no arquivo loja/views/ProdutoView.py,
+assim:
+from django.shortcuts import render, redirect
+#Inclua as classes modelos de fabricante e categoria
+from loja.models import Produto, Fabricante, Categoria
+from datetime import timedelta, datetime
+from django.utils import timezone
+from django.core.files.storage import FileSystemStorage
+[...]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora vamos ajustar a função da visão do edit, edit_produto_view no
+loja/views/ProdutoView.py, para exibir as listas em forma de select para que possamos
+escolher qual o fabricante e categoria do produto
+def edit_produto_view(request, id=None):
+produtos = Produto.objects.all()
+if id is not None:
+produtos = produtos.filter(id=id)
+produto = produtos.first()
+print(produto)
+#adicione a lista de fabricantes e categorias no context
+Fabricantes = Fabricante.objects.all()
+Categorias = Categoria.objects.all()
+context = {'produto': produto, 'fabricantes' : Fabricantes, 'categorias' : Categorias}
+return render(request, template_name='produto/produto-edit.html', context=context,
+status=200)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Já podemos modificar o template para vermos as listas adicionadas em um select. Para
+isso vá para loja/templates/produto/produto-edit.html e adicione os seguintes divs
+destacados:
+[...]
+<div class="row">
+<label for="msgPromocao" class="col-md-2">Msg Promoção</label>
+<input value="{{produto.msgPromocao}}" name="msgPromocao">
+</div>
+<div class="row">
+<label for="CategoriaFk" class="col-md-2" >Categorias</label>
+<select name="CategoriaFk">
+<option value="-1">-----</option>
+{% for cate in categorias %}
+{% if produto.categoria_id == cate.id %}
+<option value="{{cate.id}}" selected>{{cate.Categoria}}</option>
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 do loja/templates/produto/produto-edit.html:
+{% else %}
+<option value="{{cate.id}}">{{cate.Categoria}}</option>
+{% endif %}
+{% endfor %}
+</select>
+</div>
+<div class="row">
+<label for="FabricanteFk" class="col-md-2" >Fabricantes</label>
+<select name="FabricanteFk">
+<option value="-1">-----</option>
+{% for fabri in fabricantes %}
+{% if produto.fabricante_id == fabri.id %}
+<option value="{{fabri.id}}"
+selected>{{fabri.Fabricante}}</option>
+{% else %}
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 3 do loja/templates/produto/produto-edit.html:
+<option value="{{fabri.id}}">{{fabri.Fabricante}}</option>
+{% endif %}
+{% endfor %}
+</select>
+</div>
+<div class="row">
+<button type="submit" class="btn btn-danger col-md-2 mt-3 mr-2"><i
+class="fa fa-check"></i>Salvar</button>
+<a href={% url 'produto' %} class="btn bg-secondary col-md-2 mt-3"><i
+class="fa fa-rotate-left"></i>Retornar</a>
+</div>
+[...]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Código do loja/templates/produto/produto-edit.html:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Rode e confira os selects adicionados.
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora iremos voltar no loja/views/ProdutoView.py e modifique o edit_produto_postback
+para salvar o fabricante e a categoria do produto. Para isso adicione os techos de
+códigos destacados a seguir:
+def edit_produto_postback(request, id=None):
+if request.method == 'POST':
+id = request.POST.get("id")
+produto = request.POST.get("Produto")
+destaque = request.POST.get("destaque")
+promocao = request.POST.get("promocao")
+msgPromocao = request.POST.get("msgPromocao")
+#adicione a requisição do valor do campo post
+categoria = request.POST.get("CategoriaFk")
+fabricante = request.POST.get("FabricanteFk")
+print("postback")
+print(id)
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Parte 2 da função edit_produto_postback do loja/views/ProdutoView.py:
+
+print(produto)
+print(destaque)
+print(promocao)
+print(msgPromocao)
+try:
+obj_produto = Produto.objects.filter(id=id).first()
+obj_produto.Produto = produto
+obj_produto.destaque = (destaque is not None)
+obj_produto.promocao = (promocao is not None)
+#salve os objeto fabricante e categoria filtrados com base no id recebido na
+variavel categoria e fabricante
+obj_produto.fabricante = Fabricante.objects.filter(id=fabricante).first()
+obj_produto.categoria = Categoria.objects.filter(id=categoria).first()
+if msgPromocao is not None:
+[...]
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Código do edit_produto_postback do loja/views/ProdutoView.py:
+
+Django
+Capítulo 7 - Trabalhando com Templates
+Agora já podemos editar o fabricante e a categoria do produto. Rode e verifique a
+funcionalidade.
+
+
+
+
+========== aulas/capitulo-08.pdf ==========
+Django
+Capítulo 8 Trabalhando com Templates II
+
+IFRN
+George Azevedo
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+O Django tem um modelo de usuário nativo, chamado de User que contém os campos
+básicos de definição de usuários, tais como nome do usuário (username), senha
+(password), e-mail (email), data de criação (data_joined). Entretando, em geral, é
+necessário criar uma tabela adicional para incluir informações específicas vinculadas
+aos controles da aplicação. Podemos citar dentre informações específicas o perfil de
+acesso (usuário comum ou administrador), endereço e data de aniversário. Abaixo
+temos a estrutura da tabela de usuários nativa que é criada no banco e dados como
+auth_user.
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+No exemplo que estamos montando incluiremos a entidade Usuario para acrescentar
+as informações adicionais de usuário. Para isso Criaremos a classe modelo de usuário.
+Na pasta loja\models crie o arquivo Usuario.py e adicione o código a seguir.
+Parte 1 do conteúdo do loja/models/Usuario.py
+from loja.models import *
+class Usuario(models.Model):
+user = models.OneToOneField(User, on_delete=models.CASCADE)
+perfil = models.IntegerField(choices=PERFIL, default=2)
+aniversario = models.DateField(default=None, null=True, blank=True)
+criado_em = models.DateTimeField(auto_now_add=True)
+alterado_em = models.DateTimeField(auto_now=True)
+token = models.CharField(max_length=255, null=True, blank=True)
+def __str__(self):
+return '{}'.format(self.user.username)
+@receiver(post_save, sender=User)
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Parte 2 do conteúdo do loja/models/Usuario.py
+def create_user_usuario(sender, instance, created, **kwargs):
+try:
+if created:
+Usuario.objects.create(user=instance)
+except:
+pass
+@receiver(post_save, sender=User)
+def save_user_usuario(sender, instance, **kwargs):
+try:
+instance.usuario.save()
+except:
+pass
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Imagem do conteúdo do loja/models/Usuario.py
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Explicando metodos:
+create_user_usuario: método para criar o perfil do usuário. Para que isso ocorra
+automaticamente, precisamos passar a notação @receiber(post_save, sender=User) ,
+onde post_save informa que, em um determinado método post , create_user_usuario
+deve ser acionado. Já sender=User informa qual classe Model está sendo chamada no
+post, sendo assim, quando houver um post na classe User , deverá ser chamado o
+método create_user_usuario. Não podemos esquecer que requisições post são para
+criações, então um post na classe User aciona o método save dela. No resumo, toda
+vez que ocorrer a criação de um novo User, um Usuario será criado para ele.
+save_user_usuario: salva qualquer alteração no perfil automaticamente quando
+entramos no painel de perfil e alteramos qualquer dado.
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Para incluir a classe usuário e a definição das opções de perfil definidas na propriedade
+choice do campo perfil, altere o arquivo loja\models\__init__.py:
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .Fabricante import Fabricante
+from .Categoria import Categoria
+from .Produto import Produto
+# inclua o modelo de usuário
+PERFIL = (
+(1, 'Admin'),
+(2, 'Usuario')
+)
+from .Usuario import Usuario
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Execute o comando makemigrations para criar a migração do banco de dados que
+inclui a tabela da classe Usuario no banco de dados
+python manage.py makemigrations loja
+
+A quarta migração será criada na pasta de migrações
+Execute o comando migrate para aplicar a migração ao banco de dados
+python manage.py migrate loja
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Abra o banco de dados para observar que a nova tabela consta na estrutura
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Abra o arquivo loja/admin.py e inclua o comando para registrar a nova tabela na
+interface do admin
+Conteudo do loja/admin.py:
+from django.contrib import admin
+from .models import *
+class FabricanteAdmin(admin.ModelAdmin):
+#Conteudo da classe
+admin.site.register(Fabricante, FabricanteAdmin)
+admin.site.register(Categoria)
+class ProdutoAdmin(admin.ModelAdmin):
+#Conteudo da classe
+admin.site.register(Produto, ProdutoAdmin)
+# incluir a tabela de usuário no final
+admin.site.register(Usuario)
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Rode a aplicação, e acesse a página do admin;
+Comando para rodar:
+python manage.py runserver 127.0.0.1:8080
+
+Link para acessar
+http://127.0.0.1:8080/admin
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+A nova tabela de Usuario para os dados adicionais de usuário é acessível.
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Nela iremos poder controlar o perfil dos usuários e incluir qualquer informação
+adicional necessária a gestão de usuários específica da aplicação desenvolvida.
+Como o modelo da tabela usuário foi ligado ao modelo User, ao criar um user um
+registro de usuário é inserido automaticamente.
+Na classe modelo de usuário definimos o perfil padrão do usuário com o valor 2, ou
+seja, perfil de usuário(Usuario).
+O valor 1 indica no exemplo que o usuário é administrador(Admin).
+Por enquanto os usuários já criados não têm um registro na tabela de Usuário, crie
+mais 2 e adicione o admin na nossa tabela.
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Para começar vá na nossa tabela e aperte no botão ADICIONAR USUARIO.
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Na imagem abaixo, a seta azul aponta para seleção de usuários existentes, que podem
+ser vistos na tabela Usuários na seção AUTENTICAÇÃO E AUTORIZAÇÃO. A seta vermelha
+já permite inserir um Usuário direto a partir dessa interface, adicione dois usuários.
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Criando 2 usuários, usuario1 e usuario2
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+A imagem do
+lado esquerdo
+mostra a tabela
+padrão do
+Django para
+usuários
+
+A imagem do lado direito mostra a nossa tabela que
+serve como incremento para a tabela de usuário
+padrão do Django
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+A seta vermelha está apontando para a tabela que estou manipulando. A seta verde
+está apontando para minha ação no momento(edição do usuario2). A seta azul ta
+mostrando o valor inicial do usuário criado, que é não admin, ou seja, Usuario.
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Adicionando um usuário na nossa tabela para o admin.
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Agora, criaremos o template que exibirá o perfil do usuário no sistema.
+Crie uma pasta chamada usuario dentro da pasta template e dentro dela crie um
+arquivo usuario.html. Essa interface irá mostrar a lista de usuários.
+Parte 1 do conteúdo do loja/templates/usuario/usuario.html :
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Início{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+<div id="content">
+<div class="container">
+<div class="alert alert-info">
+Usuários encontrados [{{ usuarios | length }}]
+</div>
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Parte 2 do conteúdo do loja/templates/usuário/usuario.html :
+
+<div class="row">
+<h5 class="col-md-2">Usuário</h5>
+<h5 class="col-md-4">e-mail</h5>
+<h5 class="col-md-3">Aniversário</h5>
+</div>
+{% for usuario in usuarios %}
+<div class="row">
+<h5 class="col-md-2">{{usuario.user.username}}</h5>
+<h5 class="col-md-4">{{usuario.user.email}}</h5>
+<h5 class="col-md-3">{{usuario.aniversario}}</h5>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}{% block scripts %}<script src="{% static 'js/home.js'%}"></script>{%
+endblock %}
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Imagem do codigo do loja/templates/usuário/usuario.html :
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Agora para criar a camada de visão, adicione dentro da pasta views o arquivo
+UsuarioView.py. Nele inclua o comando para carregar os dados dos usuários.
+Conteúdo do loja/views/UsuarioView.py
+from django.shortcuts import render, redirect
+from loja.models import Usuario
+def list_usuario_view(request, id=None):
+# carrega somente usuarios, não inclui os admin
+usuarios = Usuario.objects.filter(perfil=2)
+context = {
+'usuarios': usuarios
+}
+return render(request, template_name='usuario/usuario.html', context=context,
+status=200)
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Agora vamos criar o arquivo de urls para definir a rota que irá chamar a interface de
+usuários. Inclua na pasta loja/urls o arquivo UsuarioUrls.py.
+Parte 1 do conteúdo do loja/urls/UsuarioUrls.py:
+from django.urls import path
+from loja.views.UsuarioView import list_usuario_view
+urlpatterns = [
+path("", list_usuario_view, name='usuario'),
+]
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+E no arquivo __init__.py da pasta Urls importe o arquivo UsuarioUrls.py, assim:
+from .HomeUrls import *
+from .ProdutoUrls import *
+from .UsuarioUrls import *
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Inclua no arquivo LojaAdmin\Urls.py as urls de usuário
+from django.contrib import admin
+from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
+from django.conf.urls import include
+urlpatterns = [
+path('admin/', admin.site.urls),
+path('', include('loja.urls.HomeUrls')),
+path('produto/', include('loja.urls.ProdutoUrls')),
+# Adicione a linha a seguir
+path('usuario/', include('loja.urls.UsuarioUrls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +
+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Inclua no menu da aplicação, no arquivo loja/templates/base.html, o botão abaixo
+para acessar o cadastro de usuários antes do botão de entrar e depois do de produto,
+no nav do header.
+{% load static %}
+<!DOCTYPE html>
+[...]<header>
+[...]
+<li class="nav-item"><a class="nav-link" href="/produto"><i class="fa fa-book"></i>
+Produto</a></li>
+<!--inclua o botão de acesso ao cadastro de usuário-->
+<li class="nav-item"><a class="nav-link" href="/usuario"><i class="fa fa-book"></i>
+Usuário</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-sign-in"></i>
+Entrar</a></li>
+[...]
+<header>[...]
+
+Django
+Capítulo 8 - Trabalhando com Templates II
+Rode a aplicação e acesse a listagem
+
+
+
+
+========== aulas/capitulo-09.pdf ==========
+Django
+Capítulo 9 Trabalhando com Forms
+
+IFRN
+George Azevedo
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Neste capítulo, veremos como criar um formulário no Django que refletirá a estrutura
+das models. Como exemplo será feita a interface de edição de usuário. Inicialmente
+será criado um formulário com os dados da tabela de usuário. Depois incluiremos na
+mesma interface campos da tabela de User. Crie na pasta do projeto uma pasta
+chamada forms e, dentro dela, crie um arquivo chamado UserUsuarioForm.py e
+coloque o código abaixo no loja/forms/UserUsuarioForm.py:
+from django.forms import ModelForm
+from django import forms
+from loja.models.Usuario import Usuario
+class UserUsuarioForm(ModelForm):
+class Meta:
+model = Usuario
+fields = ['user', 'perfil', 'aniversario']
+# Usamos '__all__' para exibir todos os campos do formulário
+# fields = '__all__'
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do loja/forms/UserUsuarioForm.py
+# Usamos uma lista para exibir campos específicos
+# fields = ['pub_date', 'headline', 'content', 'reporter']
+# Usamos exclude para excluir campos específicos do sistema
+# exclude = ['']
+widgets = {
+'user': forms.HiddenInput(),
+'perfil': forms.Select(attrs={'class': "form-control"}),
+'aniversario': forms.DateInput(attrs={'class':
+"form-control", "type": "date"})
+}
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Para prevenir que um usuário que não seja administrador possa alterar o campo perfil
+de um usuário pode-se definir uma rotina de inicialização do formulário. Inclua o código
+a destacado abaixo antes da classe meta, para exibir o campo perfil do formulário.
+from django.forms import ModelForm
+from django import forms
+from loja.models.Usuario import Usuario
+# Adicione esse trecho antes da classe meta
+class UserUsuarioForm(ModelForm):
+def __init__(self, *args, **kwargs):
+super(UserUsuarioForm, self).__init__(*args, **kwargs)
+if self.instance and self.instance.perfil != 1:
+del self.fields['perfil'] #deleta campo se o usuário não
+for adm
+# Adicione esse trecho antes da classe meta
+class Meta:
+#resto do código
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Abra o arquivo UsuarioView.py e adicione uma def chamada edit_usuario. Nela, vamos
+adicionar a lógica que vai integrar com o formulário para exibi-lo no template html.
+Adicione os trechos destacados abaixo.
+# Adicione o import do método get_object_or_404 abaixo
+from django.shortcuts import render, redirect, get_object_or_404
+from loja.models import Usuario
+# Importe a classe UserUsuarioForm abaixo
+from loja.forms.UserUsuarioForm import UserUsuarioForm
+def list_usuario_view(request, id=None):
+# carrega somente usuarios, não inclui os admin
+usuarios = Usuario.objects.filter(perfil=2)
+context = {
+'usuarios': usuarios
+}
+return render(request, template_name='usuario/usuario.html', context=context,
+status=200)
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do conteúdo do loja/views/UsuarioView.py
+# adicione o método de edição
+def edit_usuario_view(request):
+usuario = get_object_or_404(Usuario, user=request.user)
+usuarioForm = UserUsuarioForm(instance=usuario)
+context = {
+'usuarioForm': usuarioForm
+}
+return render(request, template_name='usuario/usuario-edit.html', context=context,
+status=200)
+
+Django
+Capítulo 9 - Trabalhando com Forms
+loja/views/UsuarioView.py
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Para criar a Url da visão, altere o arquivo usuarioUrls.py e inclua a rota de edição
+conforme mostrado a seguir nos trechos destacados.
+from django.urls import path
+from loja.views.UsuarioView import list_usuario_view, edit_usuario_view
+urlpatterns = [
+path("", list_usuario_view, name='usuarios'),
+# Adicione a linha a seguir
+path("edit", edit_usuario_view, name='edit_usuario'),
+]
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Será criado agora um template html que utiliza o form. Crie o arquivo usuario-edit.html
+dentro da pasta templates/usuario. Coloque o codigo abaixo no
+templates/usuario/usuario-edit.html
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Usuário{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock
+%}
+{% block content %}
+<div id="content">
+<div class="container-fluid">
+<div class="row">
+<form class="col-md-6 col-lg-4 offset-md-3 offset-lg-4" method="POST" action="">
+<div class="row">
+{% csrf_token %}
+{% for f in usuarioForm %}
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do conteudo loja/templates/usuario/usuário-edit.h
+{% if not f.is_hidden %}
+<div class="form-group col-md-6">
+{{ f.label }}
+{{ f }}
+</div>
+{% else %}
+{{ f }}
+{% endif %}
+{% endfor %}
+</div>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Execute a aplicação e acesse o endereço: http://127.0.0.1:8080/usuario/edit
+
+OBS: Para acessar essa página é necessário ter o perfil do admin criado na nossa
+tabela de usuários e estar logado na conta dele.
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Explicando:
+A variável f recebe a iteração do objeto form, que possui uma lista com todos os
+campos do objeto. Com isso acessamos cada campo do formulário.
+A tag {{f}} inclui no html o componente visual input, select ou textarea referente
+aquele campo de acordo com o tipo do mesmo.
+{{f.label}} retorna o nome do rótulo do campo.
+f.is_hidden retorna se o campo é do tipo escondido.
+É possível acessar os campo do form pelo nome dos campos.
+
+Django
+Capítulo 9 - Trabalhando com Forms
+É possível acessar os campo do form pelo nome dos campos. O código abaixo
+também é válido.
+# Não incluir esse código, ele gera a mesma apresentação do anterior
+<form class="col-md-6 col-lg-6 offset-md-3 offset-lg-3" method="POST" action="">
+<div class="row">
+{% csrf_token %}
+<div class="form-group">
+{{ usuarioForm.perfil.label }}
+{{ usuarioForm.perfil }}
+</div>
+<div class="form-group">
+{{ usuarioForm.aniversario.label }}
+{{ usuarioForm.aniversario }}
+</div>
+</div>
+</form>
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Será incluído agora os campos referente ao cadastro de usuários que estão
+armazenados na tabela nativa de usuários do Django (tabela auth_user). Serão
+incluídos na interface os campos username, email, first_name e last_name. Abra o
+arquivo UserUsuarioForm.py dentro da pasta loja/forms e adicione a classe abaixo.
+from django.forms import ModelForm
+from django import forms
+from loja.models.Usuario import Usuario
+# Adicione a linha a seguir no import
+from django.contrib.auth.models import User
+class UserUsuarioForm(ModelForm):
+#Resto do codigo
+# Adicione o código da classe UserForm
+class UserForm(ModelForm):
+class Meta:
+model = User
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do loja/forms/UserUsuarioForm.py:
+fields = ['username', 'email', 'first_name', 'last_name']
+widgets = {
+'username': forms.TextInput(attrs={'class': "form-control"}),
+'email': forms.EmailInput(attrs={'class': "form-control"}),
+'first_name': forms.TextInput(attrs={'class': "form-control"}),
+'last_name': forms.TextInput(attrs={'class': "form-control"})
+}
+
+Django
+Capítulo 9 - Trabalhando com Forms
+O formulário para editar as partes do usuário que ficam na tabela padrão do Django
+foi definido. Agora é necessário adicionar esses campos na visão e no template.
+Na pasta loja/views acesse o arquivo UsuarioView.py e faça as alterações destacadas
+abaixo:
+from django.shortcuts import render, redirect, get_object_or_404
+from loja.models import Usuario
+# Adicione a classe UserForm
+from loja.forms.UserUsuarioForm import UserUsuarioForm, UserForm
+def list_usuario_view(request, id=None):
+#Resto do codigo
+# Altere o metodo de edição
+def edit_usuario_view(request):
+usuario = get_object_or_404(Usuario, user=request.user)
+usuarioForm = UserUsuarioForm(instance=usuario)
+# Crie uma instância da classe UserForm
+userForm = UserForm(instance=request.user)
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do loja/views/UsuarioView.py:
+# Adicione uma chave userForm no contexto
+context = {
+'usuarioForm': usuarioForm,
+'userForm': userForm
+}
+return render(request, template_name='usuario/usuario-edit.html',
+context=context, status=200)
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Abra o arquivo usuario-edit.html dentro da pasta loja/templates/usuario e inclua o
+código a seguir com os componentes visuais dos novos campos
+{% extends "base.html" %}
+<!--Resto do código-->
+<form class="col-md-6 col-lg-4 offset-md-3 offset-lg-4" method="POST" action="">
+<div class="row">
+{% csrf_token %}
+<!-- Adicione o userForm antes do usuarioForm -->
+{% for f in userForm %}
+{% if not f.is_hidden %}
+<div class="form-group col-md-6">
+{{ f.label }}
+{{ f }}
+</div>
+{% else %}
+{{ f }}
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do loja/templates/usuario/usuario-edit.html:
+{% endif %}
+{% endfor %}
+<!-- Até aqui -->
+{% for f in usuarioForm %}
+{% if not f.is_hidden %}
+<div class="form-group col-md-6">
+{{ f.label }}
+{{ f }}
+</div>
+{% else %}
+{{ f }}
+{% endif %}
+{% endfor %}
+</div>
+</form></div></div></div>{% endblock %}
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Imagem do código do loja/templates/usuario/usuario-edit.html:
+
+Django
+Capítulo 9 - Trabalhando com Forms
+A apresentação da tela de edição agora está conforme apresebtado abaico. Para
+acessa-la use o endereço http://127.0.0.1:8080/usuario/edit
+OBS: Para acessar a página é necessário ter realizado o acesso ao endereço de
+administração (http://127.0.0.1:8080/admin) e realizar o login.
+
+Django
+Capítulo 9 - Trabalhando com Forms
+A interface de edição de perfil pode ser vista mas ainda não está com a
+funcionalidade implementada. É preciso fazer ainda uma mensagem de validação e
+de sucesso ou erro do salvamento, botão de enviar formulário e gravar os dados no
+banco de dados. Para começar, Inclua o código html do botão de salvar no arquivo
+loja/templates/usuario/usuario-edit.html conforme apresentado a seguir:
+
+{% extends "base.html" %}
+<!--Resto do código-->
+<form class="col-md-6 col-lg-4 offset-md-3 offset-lg-4"
+method="POST" action="">
+<div class="row">
+<!--Resto do código-->
+</div>
+<!-- Adicione antes do fechamento do form-->
+<button type="submit" class="btn btn-primary">Salvar</button>
+</form></div></div></div>{% endblock %}
+
+Django
+Capítulo 9 - Trabalhando com Forms
+E na classe de visão, loja/views/UsuarioView.py, inclua o código abaixo para tratar os
+dados recebidos no POST e salvar no banco dados.
+from django.shortcuts import render, redirect, get_object_or_404
+from loja.models import Usuario
+from loja.forms.UserUsuarioForm import UserUsuarioForm, UserForm
+#Resto do código
+def edit_usuario_view(request):
+usuario = get_object_or_404(Usuario, user=request.user)
+# Adicione as linhas a seguir
+# Perceba que os forms foram transferidos para dentro do if e do else
+emailUnused = True
+if request.method == 'POST':
+usuarioForm = UserUsuarioForm(request.POST, instance=usuario)
+userForm = UserForm(request.POST, instance=request.user)
+# Verifica se o e-mail que o usuário está tentando utilizar
+# em seu perfil já existe em outro perfil
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do loja/views/UsuarioView.py
+
+verifyEmail =
+Usuario.objects.filter(user__email=request.POST['email']).exclude(user__id=request.user.
+id).first()
+emailUnused = verifyEmail is None
+else:
+usuarioForm = UserUsuarioForm(instance=usuario)
+userForm = UserForm(instance=request.user)
+if usuarioForm.is_valid() and userForm.is_valid() and emailUnused:
+usuarioForm.save()
+userForm.save()
+# Até aqui antes do context
+context = {
+'usuarioForm': usuarioForm,
+'userForm': userForm
+}
+return render(request, template_name='usuario/usuario-edit.html',context=context, status=200
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Agora será adicionado os campos de mensagem de validação no formulário de modo
+que ele informe ao usuário quando um campo está com formato inválido. O objeto
+errors dentro de cada item do formulário, que retorna uma lista que contém um ou
+mais erros de validação. Inclua os comandos a seguir no template,
+loja/templates/usuario/usuario-edit.html, para incluir os componentes de validação
+{% extends "base.html" %}
+<!--Resto do código-->
+{% for f in userForm %}
+{% if not f.is_hidden %}
+<div class="form-group col-md-6">
+{{ f.label }}
+{{ f }}
+<!-- Adicione as linhas a seguir -->
+{% for error in f.errors %}
+<div class="invalid-feedback" style="display: initial;">{{ error }}</div>
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do loja/templates/usuario/usuario-edit.html:
+{% endfor %}
+<!-- Até aqui -->
+</div>
+<!--Resto do código-->
+{% for f in usuarioForm %}
+{% if not f.is_hidden %}
+<div class="form-group col-md-6">
+{{ f.label }}
+{{ f }}
+<!-- Adicione a linha a seguir -->
+{% for error in f.errors %}
+<div class="invalid-feedback" style="display: initial;">{{ error }}</div>
+{% endfor %}
+<!-- Até aqui -->
+</div>{% else %}{{ f }}{% endif %}{% endfor %}<!--Resto do código-->
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Código do loja/templates/usuario/usuario-edit.html:
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Rode a aplicação e, para testar os campos de erro, tente gravar uma data inválida
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Para finalizar a interface vamos adicionar uma mensagem de "dados salvos" ou de "erro
+ao salvar" no formulário. Altere o arquivo de visão, loja/views/UsuarioView.py, para
+incluir a mensagem conforme apresentado a seguir.
+
+from django.shortcuts import render, redirect, get_object_or_404
+<!--Resto do código-->
+def edit_usuario_view(request):
+usuario = get_object_or_404(Usuario, user=request.user)
+emailUnused = True
+# Adicione a linha a seguir
+message = None
+<!--Resto do código-->
+if usuarioForm.is_valid() and userForm.is_valid() and emailUnused:
+usuarioForm.save()
+userForm.save()
+# Adicione a linha a seguir
+message = { 'type': 'success', 'text': 'Dados atualizados com sucesso' }
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 2 do loja/views/UsuarioView.py
+# Adicione as linhas a seguir
+else:
+# Aqui verificamos se é do tipo post, para que na primeira vez que a página
+carregar a mensagem não apareça, já que no primeiro carregamento não enviamos um post, o
+form é dado como inválido e entra aqui.
+if request.method == 'POST':
+if emailUnused:
+# Se o e-mail não está em uso tiver algum dado inválido.
+message = { 'type': 'danger', 'text': 'Dados inválidos' }
+else:
+# Se o e-mail já está em uso por outra pessoa.
+message = { 'type': 'warning', 'text': 'E-mail já usado' }
+# Até aqui
+# Adicione a chave message a seguir
+context = {
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Parte 3 do loja/views/UsuarioView.py
+'usuarioForm': usuarioForm,
+'userForm': userForm,
+'message': message
+}
+return render(request, template_name='usuario/usuario-edit.html',
+context=context, status=200)
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Imagem da função edit do loja/views/UsuarioView.py
+
+Django
+Capítulo 9 - Trabalhando com Forms
+As alterações feitas vão definir uma mensagem de sucesso nos seguintes cenários:
+Caso o formulário seja válido
+Caso estejamos carregando a tela pela primeira vez a mensagem será do tipo
+None e não exibirá nada
+Caso tentemos submeter o formulário e haja algum dado inválido, ele informará
+que os dados enviados são inválidos ou que o usuário está tentando salvar um e-mail
+que já existe na plataforma.
+É necessário adicionar o trecho de código ao html para apresentar a mensagem. Esse
+trecho está no slide seguinte.
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Abra o arquivo loja/templates/usuario/usuario-edit.html e faça as alterações
+apresentadas a seguir:
+{% extends "base.html" %}
+<!--Resto do código-->
+<form class="col-md-6 col-lg-4 offset-md-3 offset-lg-4" method="POST"
+action="">
+<!-- Adicione as linhas a seguir -->
+{% if message is not None %}
+<div class="alert alert-{{ message.type }}">{{ message.text }}</div>
+{% endif %}
+<!-- Até aqui -->
+<div class="row">
+{% csrf_token %}
+<!--Resto do código-->
+
+Django
+Capítulo 9 - Trabalhando com Forms
+Agora teste a mensagem ajustando o e-mail para outro já utilizado, é necessário
+adicionar um email no(s) usuário(s) comuns que criamos. BAsta ir na tabelas de usuários
+nativa do Django e clicar no usuário em que se deseja adicionar o email e salvar a
+alteração, em seguida tente colocar esse email no nosso formulário de edição de
+usuário.
+
+
+
+
