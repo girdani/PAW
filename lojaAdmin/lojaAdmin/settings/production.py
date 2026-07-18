@@ -1,0 +1,14 @@
+from .settings import*
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['127.0.0.1']
+
+SECRET_KEY = 'ixb62ha#ts=ab4t2u%p1_62-!5w2j==j6d^3-j$!z(@*m+-h'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
