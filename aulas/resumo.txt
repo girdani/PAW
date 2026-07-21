@@ -1,0 +1,71 @@
+========== capitulo-01-02.pdf ==========
+cd ~/vscode-vault/PAW/mysite;
+mkdir config/settings;
+mv config/settings.py config/settings/settings.py;
+touch config/settings/__init__.py;
+touch config/settings/development.py;
+touch config/settings/testing.py;
+touch config/settings/production.py;
+
+# Conteúdo do development.py
+cat > config/settings/development.py <<'EOF'
+from .settings import *
+
+DEBUG = True
+ALLOWED_HOSTS = ['127.0.0.1']
+SECRET_KEY = 'django-insecure-e2zj!rh5nmim3dvy($x@ks#9pa&e8+usyfedyqx87s-6sla+0r'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db_development.sqlite3'
+    }
+}
+EOF
+
+# Conteúdo do testing.py
+cat > config/settings/testing.py <<'EOF'
+from .settings import *
+
+DEBUG = True
+ALLOWED_HOSTS = ['127.0.0.1']
+SECRET_KEY = 'django-insecure-e2zj!rh5nmim3dvy($x@ks#9pa&e8+usyfedyqx87s-6sla+0r'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db_testing.sqlite3'
+    }
+}
+EOF
+
+# Conteúdo do production.py
+cat > config/settings/production.py <<'EOF'
+from .settings import *
+
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1']
+SECRET_KEY = 'django-insecure-e2zj!rh5nmim3dvy($x@ks#9pa&e8+usyfedyqx87s-6sla+0r'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db_production.sqlite3'
+    }
+}
+EOF
+
+##### settings.py ######
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+STATIC_ROOT = BASE_DIR / 'static' 
+[...]
+LANGUAGE_CORE = 'pt-br'
+
+TIME_ZONE = 'America/Sao_Paulo'
+
+
+##### manage.py #####
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.development')
+
+
+#####  asgi.py #####
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.development')
+
+========== capitulo-03.pdf ==========
